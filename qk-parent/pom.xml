@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--指定spring-boot-stater-parent为父工程-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <!--本项目的唯一标识坐标-->
+    <groupId>com.qk</groupId>
+    <artifactId>qk-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--只要给当前项目创建了子工程，那么此打包方式会自动生成。
+      pom：父工程打包方式，表示父工程只做配置不写业务代码实现。【常用】
+      jar：普通的maven工程或者springboot工程打包方式。如果是springboot工程内部会内置tomcat服务器。【常用】
+      war：早期原始spring项目的打包方式，需要额外准备tomcat服务器，让后将war包放到tomcat服务器种运行。（绝迹了）
+  -->
+    <packaging>pom</packaging>
+
+    <!--指定当前父模块聚合的子模块们-->
+    <modules>
+        <module>qk-common</module>
+        <module>qk-entity</module>
+        <module>qk-management</module>
+    </modules>
+
+    <!--属性：标签名叫属性名，标签中间的内容叫属性值。一般用来定义子模块需要使用的jar包的版本号-->
+    <properties>
+        <!--告诉maven编译java代码要使用的jdk的版本，不配置也行。因为在maven的settings.xml中配置了-->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+</project>
