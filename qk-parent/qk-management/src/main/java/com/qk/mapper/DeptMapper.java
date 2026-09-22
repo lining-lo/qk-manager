@@ -1,6 +1,7 @@
 package com.qk.mapper;
 
 import com.qk.entity.Dept;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -37,4 +38,11 @@ public interface DeptMapper {
      */
     // @Update("UPDATE dept SET name = #{name}, status = #{status}, update_time = #{updateTime} WHERE id = #{id}")
     void updateById(Dept dept);
+
+    /**
+     * 根据ID删除部门
+     * @param id 部门ID
+     */
+    @Delete("DELETE FROM dept WHERE id = #{id}")
+    void deleteById(Integer id);
 }

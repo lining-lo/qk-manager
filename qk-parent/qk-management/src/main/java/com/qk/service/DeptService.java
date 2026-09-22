@@ -32,4 +32,10 @@ public interface DeptService {
      * @param dept 部门信息
      */
     void update(Dept dept);
+
+    /**
+     * 删除部门
+     * @param id 部门ID
+     */
+    void delete(Integer id);
 }

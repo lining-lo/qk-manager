@@ -68,4 +68,14 @@ public class DeptServiceImpl implements DeptService {
         //2 调用mapper层方法，修改部门
         deptMapper.updateById(dept);
     }
+
+    /**
+     * 删除部门
+     * @param id 部门ID
+     */
+    @Override
+    public void delete(Integer id) {
+        //调用mapper层方法，根据id删除部门
+        deptMapper.deleteById(id);
+    }
 }

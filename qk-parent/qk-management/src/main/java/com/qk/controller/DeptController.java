@@ -82,4 +82,18 @@ public class DeptController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 删除部门
+     * @param id 部门ID
+     */
+    @DeleteMapping("/depts/{id}")
+    public Result delete(@PathVariable Integer id) {
+        //1 接收请求参数--->(@PathVariable Dept dept)
+        log.info("删除部门，id：{}", id);
+        //2 调用service层方法，删除部门
+        deptService.delete(id);
+        //3 响应Result
+        return Result.success();
+    }
 }
