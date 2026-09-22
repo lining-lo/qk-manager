@@ -26,4 +26,10 @@ public interface UserMapper {
     @Insert("INSERT INTO user(username, password, name, phone, email, gender, status, dept_id, role_id, image, remark, create_time, update_time) VALUES(#{username}, #{password}, #{name}, #{phone}, #{email}, #{gender}, #{status}, #{deptId}, #{roleId}, #{image}, #{remark}, #{createTime}, #{updateTime})")
     void insert(User user);
 
+    /**
+     * 批量删除用户
+     * @param ids 用户ID数组
+     */
+    void deleteByIds(List<Integer> ids);
+
 }

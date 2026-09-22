@@ -4,6 +4,8 @@ import com.qk.domain.PageResult;
 import com.qk.dto.UserQueryDto;
 import com.qk.entity.User;
 
+import java.util.List;
+
 /**
  * 用户管理Service接口
  */
@@ -21,4 +23,10 @@ public interface UserService {
      * @param user 封装用户信息(不包含password、createTime、updateTime)
      */
     void add(User user);
+
+    /**
+     * 批量删除用户
+     * @param ids 用户ID数组
+     */
+    void delete(List<Integer> ids);
 }

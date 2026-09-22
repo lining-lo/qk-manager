@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 用户管理控制器
  */
@@ -46,6 +48,21 @@ public class UserController {
         log.info("新增用户：{}", user);
         //2 调用service，新增用户
         userService.add(user);
+        //3 响应Result
+        return Result.success();
+    }
+
+    /**
+     批量删除
+     * @param ids 保存批量删除的ID们。例如：/users/2,3,4
+     */
+    @DeleteMapping("/{ids}")
+    //public Result delete(@PathVariable Integer[] ids){
+    public Result delete(@PathVariable List<Integer> ids){
+        //1 接收请求参数-->(@PathVariable List<Integer> ids)
+        log.info("批量删除用户，ids：{}", ids);
+        //2 调用service，批量删除
+        userService.delete(ids);
         //3 响应Result
         return Result.success();
     }

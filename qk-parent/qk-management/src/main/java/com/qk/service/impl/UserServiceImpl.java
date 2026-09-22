@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 用户服务实现类
@@ -52,5 +53,15 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(LocalDateTime.now());
         //3 调用mapper层方法，保存用户
         userMapper.insert(user);
+    }
+
+    /**
+     * 批量删除用户
+     * @param ids 用户ID数组
+     */
+    @Override
+    public void delete(List<Integer> ids) {
+        //直接调用mapper层方法，批量删除用户
+        userMapper.deleteByIds(ids);
     }
 }

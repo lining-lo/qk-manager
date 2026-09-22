@@ -25,5 +25,30 @@
         order by u.create_time desc
     </select>
 
+    <!--批量删除  @param ids 保存批量删除的ID们
+    void deleteByIds(List<Integer> ids);  (?,?,?)
+    foreach标签：遍历数组、单列集合、双列集合
+        collection="ids"属性：定义要遍历的集合名称
+        item="id"属性：定义遍历出来的值用id保存（相当于遍历ids集合，将遍历的值赋值给id遍历）
+            #{id}：取遍历出来的值。从id变量中取值放到in的()中
+        index="i"属性：如果是遍历单列集合，i表示索引，如果是遍历双列集合，i表示key
+        separator=","属性：每次遍历使用的分隔符
+        open="("属性：遍历之前要拼接的固定字符
+        close=")"属性：遍历结束后要拼接的固定字符
+    -->
+    <delete id="deleteByIds">
+        delete from user where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--<delete id="deleteByIds">
+        delete from user where id in (
+        <foreach collection="ids" item="id" separator=",">
+           #{id}
+        </foreach>
+        )
+    </delete>-->
+
 
 </mapper>
