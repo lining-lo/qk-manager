@@ -68,4 +68,18 @@ public class DeptController {
         //3 响应Result结果
         return Result.success(pageResult);
     }
+
+    /**
+     * 修改部门
+     * @param dept 部门信息
+     */
+    @PutMapping("/depts")
+    public Result update(@RequestBody Dept dept) {
+        //1 接收请求参数--->(@RequestBody Dept dept)
+        log.info("修改部门：{}", dept);
+        //2 调用service层方法，修改部门
+        deptService.update(dept);
+        //3 响应Result
+        return Result.success();
+    }
 }

@@ -4,6 +4,7 @@ import com.qk.entity.Dept;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -30,4 +31,11 @@ public interface DeptMapper {
      */
     @Select("select id, name, status, create_time, update_time from dept where id=#{id}")
     Dept getById(Integer id);
+
+    /**
+     * 更新部门信息
+     * @param dept 部门实体
+     */
+    @Update("UPDATE dept SET name = #{name}, status = #{status}, update_time = #{updateTime} WHERE id = #{id}")
+    void updateById(Dept dept);
 }
