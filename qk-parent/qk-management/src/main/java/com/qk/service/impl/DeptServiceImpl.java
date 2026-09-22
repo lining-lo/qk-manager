@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class DeptServiceImpl implements DeptService {
@@ -77,5 +78,14 @@ public class DeptServiceImpl implements DeptService {
     public void delete(Integer id) {
         //调用mapper层方法，根据id删除部门
         deptMapper.deleteById(id);
+    }
+
+    /**
+     * 查询所有正常状态的部门信息
+     */
+    @Override
+    public List<Dept> list() {
+        //调用mapper层之前写好的list方法
+        return deptMapper.list(null, 1);
     }
 }

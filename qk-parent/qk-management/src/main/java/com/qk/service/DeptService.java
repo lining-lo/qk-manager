@@ -3,6 +3,8 @@ package com.qk.service;
 import com.qk.domain.PageResult;
 import com.qk.entity.Dept;
 
+import java.util.List;
+
 public interface DeptService {
     /**
      新增部门
@@ -38,4 +40,9 @@ public interface DeptService {
      * @param id 部门ID
      */
     void delete(Integer id);
+
+    /**
+     * 查询所有正常状态的部门信息
+     */
+    List<Dept> list();
 }

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/depts") //给该类中所有的方法定义一个公共访问路径，访问方法时都需要带上这个路径
@@ -96,5 +98,16 @@ public class DeptController {
         deptService.delete(id);
         //3 响应Result
         return Result.success();
+    }
+
+    /**
+     * 查询所有正常状态的部门信息
+     */
+    @GetMapping("/list")
+    public Result list(){
+        //1 调用service层方法，查询所有正常状态的部门信息
+        List<Dept> deptList = deptService.list();
+        //2 响应Result
+        return Result.success(deptList);
     }
 }
