@@ -9,6 +9,7 @@ import com.qk.mapper.UserMapper;
 import com.qk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
 
@@ -37,17 +38,19 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     新增用户
-     @param user 封装用户信息(不包含password、createTime、updateTime)
+     * 新增用户
+     * @param user 用户信息
      */
     @Override
     public void add(User user) {
-        //1 设置默认密码
-        user.setPassword(user.getUsername()+"123");
-        //2 设置创建时间、更新时间
+        //1 设置默认密码：用户名+123
+        //user.setPassword(user.getUsername()+"123");
+        //使用MD5算法对密码进行加密
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getUsername()+"123").getBytes()));
+        //2 设置创建时间和更新时间为当前时间
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
-        //3 调用Mapper层方法，新增用户
+        //3 调用mapper层方法，保存用户
         userMapper.insert(user);
     }
 }
