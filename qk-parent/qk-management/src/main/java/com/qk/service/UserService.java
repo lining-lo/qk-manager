@@ -36,4 +36,12 @@ public interface UserService {
      * @return 用户实体
      */
     User getById(Integer id);
+
+    /**
+     * 修改用户信息
+     * @param user 用户信息
+     */
+    void update(User user);
+
+
 }

@@ -75,4 +75,18 @@ public class UserServiceImpl implements UserService {
         //直接调用mapper层方法，根据id查询用户信息
         return userMapper.getById(id);
     }
+
+    /**
+     * 修改用户信息
+     * @param user 用户信息
+     */
+    @Override
+    public void update(User user) {
+        //1 设置更新时间为当前时间
+        user.setUpdateTime(LocalDateTime.now());
+        //2 密码加密处理
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()+"123").getBytes()));
+        //3 调用mapper层方法，修改用户信息
+        userMapper.updateById(user);
+    }
 }

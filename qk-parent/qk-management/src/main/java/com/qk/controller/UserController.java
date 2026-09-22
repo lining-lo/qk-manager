@@ -80,4 +80,18 @@ public class UserController {
         //3 响应Result
         return Result.success(user);
     }
+
+    /**
+     * 修改用户信息
+     * @param user 用户信息
+     */
+    @PutMapping
+    public Result update(@RequestBody User user) {
+        //1 获取请求参数--->(@RequestBody User user)
+        log.info("修改用户: {}", user);
+        //2 调用service层方法，修改用户
+        userService.update(user);
+        //3 响应Result
+        return Result.success();
+    }
 }

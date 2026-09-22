@@ -40,4 +40,10 @@ public interface UserMapper {
      */
     @Select("SELECT id, username, password, name, phone, email, gender, status, dept_id, role_id, image, remark, create_time, update_time FROM user WHERE id = #{id}")
     User getById(Integer id);
+
+    /**
+     * 更新用户信息（动态SQL）
+     * @param user 用户实体
+     */
+    void updateById(User user);
 }
