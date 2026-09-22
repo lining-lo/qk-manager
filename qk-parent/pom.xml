@@ -55,17 +55,6 @@
     <!--用来锁定子模块要用的jar包的版本号，该标签不会引入依赖jar，只什么jar包的版本号。如果子模块需要这个jar，则自己写坐标但是不用再写版本号-->
     <dependencyManagement>
         <dependencies>
-            <!--springboot web开发起步依赖-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-            </dependency>
-            <!--springboot 单元测试起步依赖-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
             <!--mybatis 起步依赖-->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>

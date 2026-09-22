@@ -1,13 +1,12 @@
 package com.qk.controller;
 
+import com.qk.domain.PageResult;
 import com.qk.domain.Result;
 import com.qk.entity.Dept;
 import com.qk.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -28,5 +27,30 @@ public class DeptController {
         deptService.add(dept);
         //3 响应Result结果
         return Result.success();
+    }
+
+    /**
+     带条件分分页查询
+     * @param name 部门名称
+     * @param status 部门状态
+     * @param page 当前页码
+     * @param pageSize 每页条数
+     * @return 分页结果
+    获取查询参数：url?name=value&name=value格式的参数：保证请求参数名称和方法形参变量名一样，springboot就能自动接收请求参数，如果不一样，就需要使用@RequestParam注解指定请求参数的名称。
+     * @RequestParam :
+     *  1、当请求参数名称和形参变量名不一致时，可以使用@RequestParam指定请求参数的名称赋值给形参变量
+     *  2、可以设置前端必须传递某个请求参数，使用@RequestParam的required属性设置为true（默认值），如果不是必须就设置为false。
+     *  3、可以给形参设置默认值,使用@RequestParam的defaultValue属性
+     */
+    @GetMapping("/depts")
+    public Result page(String name, Integer status,
+                       @RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize){
+        //1 接收请求参数-->(String name,Integer status,Integer page, Integer pageSize)
+        log.info("分页查询部门，参数：name={},status={},page={},pageSize={}",name,status,page,pageSize);
+        //2 调用service分页查询，获取分页结果PageResult
+        PageResult<Dept> pageResult = deptService.page(name, status, page, pageSize);
+        //3 响应Result结果
+        return Result.success(pageResult);
     }
 }

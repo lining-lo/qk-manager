@@ -1,4 +1,4 @@
-package com.qk.qkmanagement;
+package com.qk;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

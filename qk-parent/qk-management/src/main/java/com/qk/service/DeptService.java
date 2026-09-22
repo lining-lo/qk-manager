@@ -1,5 +1,6 @@
 package com.qk.service;
 
+import com.qk.domain.PageResult;
 import com.qk.entity.Dept;
 
 public interface DeptService {
@@ -8,4 +9,15 @@ public interface DeptService {
      * @param dept 封装要新增部门信息(只有name和status)
      */
     void add(Dept dept);
+
+    /**
+     * 条件分页查询部门
+     *
+     * @param name     部门名称
+     * @param status   状态
+     * @param page     页码
+     * @param pageSize 每页记录数
+     * @return 分页查询结果
+     */
+    PageResult<Dept> page(String name, Integer status, Integer page, Integer pageSize);
 }

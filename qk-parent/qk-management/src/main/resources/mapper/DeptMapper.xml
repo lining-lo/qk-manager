@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qk.mapper.DeptMapper">
+    <!--带条件查询部门，如果使用PageHelper就是分页查询
+         @param name 部门名称
+         @param status 部门状态
+         Page<Dept> list(String name, Integer status);-->
+    <select id="list" resultType="com.qk.entity.Dept">
+        select id, name, status, create_time, update_time from dept
+        <where>
+            <if test="name!=null and name!=''">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="status!=null">
+                and status=#{status}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+</mapper>
