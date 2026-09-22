@@ -7,9 +7,7 @@ import com.qk.entity.User;
 import com.qk.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 用户管理控制器
@@ -36,5 +34,19 @@ public class UserController {
         PageResult<User> pageResult = userService.page(queryDto);
         //3 响应Result对象
         return Result.success(pageResult);
+    }
+
+    /**
+     新增用户
+     * @param user 封装用户信息(不包含password、createTime、updateTime)
+     */
+    @PostMapping
+    public Result add(@RequestBody User user){
+        //1 接收请求参数-->(@RequestBody User user)
+        log.info("新增用户：{}", user);
+        //2 调用service，新增用户
+        userService.add(user);
+        //3 响应Result
+        return Result.success();
     }
 }

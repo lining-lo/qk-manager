@@ -10,6 +10,8 @@ import com.qk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * 用户服务实现类
  */
@@ -32,5 +34,20 @@ public class UserServiceImpl implements UserService {
         Page<User> page = (Page<User>)userMapper.list(queryDto);
         //3 获取分页结果封装成PageResult对象返回
         return new PageResult<>(page.getTotal(),page.getResult());
+    }
+
+    /**
+     新增用户
+     @param user 封装用户信息(不包含password、createTime、updateTime)
+     */
+    @Override
+    public void add(User user) {
+        //1 设置默认密码
+        user.setPassword(user.getUsername()+"123");
+        //2 设置创建时间、更新时间
+        user.setCreateTime(LocalDateTime.now());
+        user.setUpdateTime(LocalDateTime.now());
+        //3 调用Mapper层方法，新增用户
+        userMapper.insert(user);
     }
 }

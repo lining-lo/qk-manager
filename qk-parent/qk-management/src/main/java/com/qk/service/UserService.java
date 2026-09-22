@@ -15,4 +15,10 @@ public interface UserService {
      * @return 分页结果
      */
     PageResult<User> page(UserQueryDto queryDto);
+
+    /**
+     新增用户
+     * @param user 封装用户信息(不包含password、createTime、updateTime)
+     */
+    void add(User user);
 }
