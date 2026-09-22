@@ -15,6 +15,21 @@ public class DeptController {
     private DeptService deptService;
 
     /**
+     根据id查询部门
+     * @param id 要查询的部门id
+     * @PathVariable：获取路径参数(/depts/{id})。当{}中占位符的名称和形参变量名不一样时，需要在@PathVariable中指定占位符的名称。例如：(@PathVariable("id") Integer deptId)。如果一样就不用写占位符的名称。例如：(@PathVariable Integer id)
+     */
+    @GetMapping("/depts/{id}")
+    public Result getById(@PathVariable Integer id) {
+        //1 获取请求参数--->(@PathVariable Integer id)
+        log.info("根据ID查询部门，参数：{}", id);
+        //2 调用service层方法，根据ID查询部门
+        Dept dept = deptService.getById(id);
+        //3 响应Result
+        return Result.success(dept);
+    }
+
+    /**
      新增部门
      * @param dept 封装要新增部门信息(只有name和status)
      * @RequestBody :将请求体中的json数据转换(封装)成Java对象，要求json的key要和对象的属性名一样。适用于POST、PUT请求

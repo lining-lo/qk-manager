@@ -46,4 +46,14 @@ public class DeptServiceImpl implements DeptService {
         //3 封装PageResult对象并返回
         return new PageResult<>(p.getTotal(), p.getResult());
     }
+
+    /**
+     * 根据ID查询部门
+     * @param id 部门ID
+     */
+    @Override
+    public Dept getById(Integer id) {
+        //直接调用mapper层方法，根据id查询部门
+        return deptMapper.getById(id);
+    }
 }

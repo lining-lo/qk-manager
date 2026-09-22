@@ -20,4 +20,10 @@ public interface DeptService {
      * @return 分页查询结果
      */
     PageResult<Dept> page(String name, Integer status, Integer page, Integer pageSize);
+
+    /**
+     * 根据ID查询部门
+     * @param id 部门ID
+     */
+    Dept getById(Integer id);
 }
