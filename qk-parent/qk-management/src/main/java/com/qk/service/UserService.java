@@ -29,4 +29,11 @@ public interface UserService {
      * @param ids 用户ID数组
      */
     void delete(List<Integer> ids);
+
+    /**
+     * 根据ID查询用户信息
+     * @param id 用户ID
+     * @return 用户实体
+     */
+    User getById(Integer id);
 }

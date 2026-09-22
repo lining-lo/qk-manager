@@ -4,6 +4,7 @@ import com.qk.dto.UserQueryDto;
 import com.qk.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -32,4 +33,11 @@ public interface UserMapper {
      */
     void deleteByIds(List<Integer> ids);
 
+    /**
+     * 根据ID查询用户信息
+     * @param id 用户ID
+     * @return 用户实体
+     */
+    @Select("SELECT id, username, password, name, phone, email, gender, status, dept_id, role_id, image, remark, create_time, update_time FROM user WHERE id = #{id}")
+    User getById(Integer id);
 }

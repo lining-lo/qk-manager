@@ -64,4 +64,15 @@ public class UserServiceImpl implements UserService {
         //直接调用mapper层方法，批量删除用户
         userMapper.deleteByIds(ids);
     }
+
+    /**
+     * 根据ID查询用户信息
+     * @param id 用户ID
+     * @return 用户实体
+     */
+    @Override
+    public User getById(Integer id) {
+        //直接调用mapper层方法，根据id查询用户信息
+        return userMapper.getById(id);
+    }
 }

@@ -66,4 +66,18 @@ public class UserController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 根据ID查询用户信息
+     * @param id 用户ID
+     */
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable("id") Integer id) {
+        //1 获取请求参数--->(@PathVariable("id") Integer id)
+        log.info("根据ID查询用户: {}", id);
+        //2 调用service层方法，根据ID查询用户
+        User user = userService.getById(id);
+        //3 响应Result
+        return Result.success(user);
+    }
 }
