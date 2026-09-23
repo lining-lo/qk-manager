@@ -15,5 +15,10 @@ public interface RoleMapper {
      */
     List<Role> list(String name);
 
-
+    /**
+     * 新增角色
+     * @param role 封装角色信息
+     */
+    @Insert("INSERT INTO role(name, label, remark, create_time, update_time) VALUES(#{name}, #{label},#{remark},  #{createTime}, #{updateTime})")
+    void insert(Role role);
 }

@@ -42,4 +42,17 @@ public class RoleServiceImpl implements RoleService {
         //3 封装PageResult对象并返回
         return new PageResult<>(p.getTotal(), p.getResult());
     }
+
+    /**
+     * 新增角色
+     * @param role 封装角色信息(包括角色名称、角色标识、备注)
+     */
+    @Override
+    public void add(Role role) {
+        //1 设置基础属性
+        role.setCreateTime(LocalDateTime.now());
+        role.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，新增角色
+        roleMapper.insert(role);
+    }
 }

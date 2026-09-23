@@ -21,4 +21,12 @@ public interface RoleService {
      * @return 分页查询结果
      */
     PageResult<Role> page(String name, Integer page, Integer pageSize);
+
+    /**
+     * 新增角色
+     * @param role 封装角色信息(包括角色名称、角色标识、备注)
+     */
+    void add(Role role);
+
+
 }

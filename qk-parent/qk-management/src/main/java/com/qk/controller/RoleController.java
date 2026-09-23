@@ -6,10 +6,7 @@ import com.qk.entity.Role;
 import com.qk.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,4 +46,19 @@ public class RoleController {
         //3 响应Result
         return Result.success(pageResult);
     }
+
+    /**
+     * 新增角色
+     * @param role 封装角色信息(包括角色名称、角色标识、备注)
+     */
+    @PostMapping
+    public Result add(@RequestBody Role role) {
+        //1 接收请求参数--->(@RequestBody Role role)
+        log.info("新增角色：{}", role);
+        //2 调用service层方法，新增角色
+        roleService.add(role);
+        //3 响应Result
+        return Result.success();
+    }
+
 }
