@@ -4,6 +4,8 @@ import com.qk.domain.PageResult;
 import com.qk.dto.ActivityQueryDto;
 import com.qk.entity.Activity;
 
+import java.util.List;
+
 public interface ActivityService {
     /**
      * 根据条件查询活动
@@ -35,4 +37,9 @@ public interface ActivityService {
      * @param id 活动ID
      */
     void delete(Integer id);
+
+    /**
+     * 查询所有活动信息
+     */
+    List<Activity> list();
 }

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/activities")
@@ -85,5 +87,16 @@ public class ActivityController {
         activityService.delete(id);
         //3 响应Result
         return Result.success();
+    }
+
+    /**
+     * 查询所有活动信息
+     */
+    @GetMapping("/list")
+    public Result list(){
+        //1 调用service层方法，查询所有正常状态的活动信息
+        List<Activity> activityList = activityService.list();
+        //2 响应Result
+        return Result.success(activityList);
     }
 }

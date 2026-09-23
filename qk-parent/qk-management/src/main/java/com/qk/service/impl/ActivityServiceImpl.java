@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
@@ -76,4 +77,15 @@ public class ActivityServiceImpl implements ActivityService {
         //调用mapper层方法，根据id删除活动
         activityMapper.deleteById(id);
     }
+
+    /**
+     * 查询所有活动信息
+     */
+    @Override
+    public List<Activity> list() {
+        //调用mapper层之前写好的list方法
+        return activityMapper.list(null);
+    }
+
+
 }
