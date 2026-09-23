@@ -55,4 +55,14 @@ public class RoleServiceImpl implements RoleService {
         //2 调用mapper层方法，新增角色
         roleMapper.insert(role);
     }
+
+    /**
+     * 根据ID查询角色
+     * @param id 角色ID
+     */
+    @Override
+    public Role getById(Integer id) {
+        //直接调用mapper层方法，根据id查询角色
+        return roleMapper.getById(id);
+    }
 }

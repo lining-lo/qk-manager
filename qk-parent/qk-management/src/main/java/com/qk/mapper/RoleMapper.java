@@ -21,4 +21,12 @@ public interface RoleMapper {
      */
     @Insert("INSERT INTO role(name, label, remark, create_time, update_time) VALUES(#{name}, #{label},#{remark},  #{createTime}, #{updateTime})")
     void insert(Role role);
+
+    /**
+     * 根据ID查询角色
+     * @param id 角色ID
+     * @return 角色实体
+     */
+    @Select("SELECT id, name, label, remark, create_time , update_time FROM role WHERE id = #{id}")
+    Role getById(Integer id);
 }

@@ -61,4 +61,19 @@ public class RoleController {
         return Result.success();
     }
 
+    /**
+     * 根据ID查询角色
+     * @param id 角色ID
+     * @return 查询结果
+     */
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        //1 获取请求参数--->(@PathVariable Integer id)
+        log.info("根据ID查询角色，参数：{}", id);
+        //2 调用service层方法，根据ID查询角色
+        Role role = roleService.getById(id);
+        //3 响应Result
+        return Result.success(role);
+    }
+
 }

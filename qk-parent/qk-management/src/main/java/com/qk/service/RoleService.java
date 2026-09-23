@@ -28,5 +28,10 @@ public interface RoleService {
      */
     void add(Role role);
 
-
+    /**
+     * 根据ID查询角色
+     * @param id 角色ID
+     * @return 查询结果
+     */
+    Role getById(Integer id);
 }
