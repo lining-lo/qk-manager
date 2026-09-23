@@ -90,4 +90,14 @@ public class CourseServiceImpl implements CourseService {
         //调用mapper层方法，根据id删除课程
         courseMapper.deleteById(id);
     }
+
+    /**
+     * 根据学科查询课程
+     * @param subject 课程学科
+     */
+    @Override
+    public List<Course> getBySubject(Integer subject) {
+        //直接调用mapper层方法，根据学科查询课程
+        return courseMapper.getBySubject(subject);
+    }
 }

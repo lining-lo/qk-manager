@@ -105,4 +105,17 @@ public class CourseController {
         return Result.success();
     }
 
+    /**
+     * 根据学科查询课程
+     * @param subject 课程学科
+     */
+    @GetMapping("/subject/{subject}")
+    public Result getBySubject(@PathVariable Integer subject) {
+        //1 获取请求参数--->(@PathVariable Integer id)
+        log.info("根据ID查询课程，参数：{}", subject);
+        //2 调用service层方法，根据学科查询课程
+        List<Course> courseList = courseService.getBySubject(subject);
+        //3 响应Result
+        return Result.success(courseList);
+    }
 }

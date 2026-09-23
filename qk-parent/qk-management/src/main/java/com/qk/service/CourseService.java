@@ -46,4 +46,10 @@ public interface CourseService {
      * @param id 课程ID
      */
     void delete(Integer id);
+
+    /**
+     * 根据学科查询课程
+     * @param subject 课程学科
+     */
+    List<Course> getBySubject(Integer subject);
 }
