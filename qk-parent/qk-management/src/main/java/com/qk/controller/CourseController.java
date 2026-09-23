@@ -76,4 +76,19 @@ public class CourseController {
         return Result.success();
     }
 
+    /**
+     * 根据ID查询课程
+     * @param id 课程ID
+     * @return 查询结果
+     */
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        //1 获取请求参数--->(@PathVariable Integer id)
+        log.info("根据ID查询课程，参数：{}", id);
+        //2 调用service层方法，根据ID查询课程
+        Course course = courseService.getById(id);
+        //3 响应Result
+        return Result.success(course);
+    }
+
 }

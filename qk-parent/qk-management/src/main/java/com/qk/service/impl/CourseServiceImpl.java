@@ -70,4 +70,14 @@ public class CourseServiceImpl implements CourseService {
         //2 调用mapper层方法，修改课程
         courseMapper.updateById(course);
     }
+
+    /**
+     * 根据ID查询课程
+     * @param id 课程ID
+     */
+    @Override
+    public Course getById(Integer id) {
+        //直接调用mapper层方法，根据id查询课程
+        return courseMapper.getById(id);
+    }
 }

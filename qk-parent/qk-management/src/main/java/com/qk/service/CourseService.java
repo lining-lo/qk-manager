@@ -33,4 +33,11 @@ public interface CourseService {
      * @param course 课程信息
      */
     void update(Course course);
+
+    /**
+     * 根据ID查询课程
+     * @param id 课程ID
+     * @return 查询结果
+     */
+    Course getById(Integer id);
 }

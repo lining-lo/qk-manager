@@ -29,4 +29,12 @@ public interface CourseMapper {
      * @param course 课程实体
      */
     void updateById(Course course);
+
+    /**
+     * 根据ID查询课程
+     * @param id 课程ID
+     * @return 课程实体
+     */
+    @Select("SELECT id, subject, name, price, target, description, create_time, update_time FROM course WHERE id = #{id}")
+    Course getById(Integer id);
 }
