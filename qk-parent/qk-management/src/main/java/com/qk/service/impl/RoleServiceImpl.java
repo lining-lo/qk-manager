@@ -77,4 +77,14 @@ public class RoleServiceImpl implements RoleService {
         //2 调用mapper层方法，修改角色
         roleMapper.updateById(role);
     }
+
+    /**
+     * 删除角色
+     * @param id 角色ID
+     */
+    @Override
+    public void delete(Integer id) {
+        //调用mapper层方法，根据id删除角色
+        roleMapper.deleteById(id);
+    }
 }

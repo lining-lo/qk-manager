@@ -35,4 +35,11 @@ public interface RoleMapper {
      * @param role 角色实体
      */
     void updateById(Role role);
+
+    /**
+     * 根据ID删除角色
+     * @param id 角色ID
+     */
+    @Delete("DELETE FROM role WHERE id = #{id}")
+    void deleteById(Integer id);
 }

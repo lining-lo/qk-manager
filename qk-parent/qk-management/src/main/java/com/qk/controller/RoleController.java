@@ -89,4 +89,18 @@ public class RoleController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 删除角色
+     * @param id 角色ID
+     */
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id) {
+        //1 接收请求参数--->(@PathVariable Role role)
+        log.info("删除角色，id：{}", id);
+        //2 调用service层方法，删除角色
+        roleService.delete(id);
+        //3 响应Result
+        return Result.success();
+    }
 }
