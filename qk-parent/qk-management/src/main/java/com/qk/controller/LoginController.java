@@ -26,9 +26,9 @@ public class LoginController {
         //2 调用service，用户登录，获取登录结果LoginResultVo
         LoginResultVo loginResultVo = userService.login(loginDto);
         //3 响应结果
-        if(loginResultVo==null){
-            return Result.error("登录失败！");
-        }
+        //if(loginResultVo==null){
+        // return Result.error("登录失败！");
+        //}
         return Result.success(loginResultVo);
     }
 }

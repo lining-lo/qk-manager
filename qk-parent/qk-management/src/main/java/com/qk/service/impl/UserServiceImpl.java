@@ -6,6 +6,7 @@ import com.qk.domain.PageResult;
 import com.qk.dto.UserLoginDto;
 import com.qk.dto.UserQueryDto;
 import com.qk.entity.User;
+import com.qk.exception.BusinessException;
 import com.qk.mapper.UserMapper;
 import com.qk.service.UserService;
 import com.qk.vo.LoginResultVo;
@@ -93,29 +94,29 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     用户登录
-     @param loginDto 封装用户名和密码
+     * 用户登录
+     * @param userLoginDto 封装用户名和密码
      */
     @Override
-    public LoginResultVo login(UserLoginDto loginDto) {
-        //1 根据用户名查询用户信息
-        User user = userMapper.getByUsername(loginDto.getUsername());
-        if(user==null){
-            //没查到User，说明用户不存在
-            return null;
+    public LoginResultVo login(UserLoginDto userLoginDto) {
+        // 查询用户信息
+        User user = userMapper.getByUsername(userLoginDto.getUsername());
+        // 判断用户是否存在
+        if (user == null) {
+            throw new BusinessException("用户名不存在!"); // 用户不存在
         }
-        //2 校验密码是否正确
-        String password = DigestUtils.md5DigestAsHex(loginDto.getPassword().getBytes());
-        if(!password.equals(user.getPassword())){
-            //密码不相等，说明密码错误
-            return null;
+        //获取登录密码并加密处理。
+        String password = DigestUtils.md5DigestAsHex(userLoginDto.getPassword().getBytes());
+        if (!user.getPassword().equals(password )) {
+            throw new BusinessException("密码错误!"); // 密码错误
         }
-        //3 校验状态是否是启用
-        Integer status = user.getStatus();
-        if(status==0){
-            //账号被禁用了
-            return null;
+
+        // 校验用户状态
+        if (user.getStatus()==0) { // 0 表示停用状态
+            throw new BusinessException("对不起, 您的账号已停用"); // 状态异常，不允许登录
         }
+
+        // 构造登录结果
         //4 封装登录结果LoginResultVo对象
         LoginResultVo loginResultVo = new LoginResultVo();
         loginResultVo.setId(user.getId());

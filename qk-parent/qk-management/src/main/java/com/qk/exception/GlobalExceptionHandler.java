@@ -28,4 +28,11 @@ public class GlobalExceptionHandler {
         String[] split = ex.getCause().getMessage().split(" "); //["Duplicate","entry","市场二部",...]
         return Result.error(split[2]+"重复了");
     }
+
+    //处理业务异常 BusinessException
+    @ExceptionHandler
+    public Result doBusinessException(BusinessException ex){
+        ex.printStackTrace();
+        return Result.error(ex.getMessage());
+    }
 }
