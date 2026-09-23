@@ -48,4 +48,18 @@ public class CourseController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 新增课程
+     * @param course 封装课程信息
+     */
+    @PostMapping
+    public Result add(@RequestBody Course course) {
+        //1 接收请求参数--->(@RequestBody Course course)
+        log.info("新增课程：{}", course);
+        //2 调用service层方法，新增课程
+        courseService.add(course);
+        //3 响应Result
+        return Result.success();
+    }
+
 }

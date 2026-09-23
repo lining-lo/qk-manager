@@ -22,4 +22,9 @@ public interface CourseService {
      */
     PageResult<Course> page(Integer subject, String name, Integer target, Integer page, Integer pageSize);
 
+    /**
+     * 新增课程
+     * @param course 封装课程信息
+     */
+    void add(Course course);
 }

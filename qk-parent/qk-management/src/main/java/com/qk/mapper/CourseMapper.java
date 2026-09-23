@@ -16,4 +16,11 @@ public interface CourseMapper {
      * @param target   适应人群
      */
     List<Course> list(Integer subject, String name, Integer target);
+
+    /**
+     * 新增课程
+     * @param course 封装课程信息
+     */
+    @Insert("INSERT INTO course(subject, name, price, target, description, create_time, update_time) VALUES(#{subject}, #{name}, #{price}, #{target}, #{description}, #{createTime}, #{updateTime})")
+    void insert(Course course);
 }

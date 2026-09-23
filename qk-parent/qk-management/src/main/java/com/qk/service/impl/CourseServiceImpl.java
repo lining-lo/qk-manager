@@ -9,6 +9,7 @@ import com.qk.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -43,5 +44,18 @@ public class CourseServiceImpl implements CourseService {
         Page<Course> p = (Page<Course>)courseMapper.list(subject,name,target);
         //3 封装PageResult对象并返回
         return new PageResult<>(p.getTotal(), p.getResult());
+    }
+
+    /**
+     * 新增课程
+     * @param course 封装课程信息
+     */
+    @Override
+    public void add(Course course) {
+        //1 设置基础属性
+        course.setCreateTime(LocalDateTime.now());
+        course.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，新增课程
+        courseMapper.insert(course);
     }
 }
