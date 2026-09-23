@@ -10,4 +10,10 @@ public interface ActivityService {
      * @param activityQueryDto 查询条件
      */
     PageResult<Activity> page(ActivityQueryDto activityQueryDto);
+
+    /**
+     * 新增活动
+     * @param activity 封装活动信息
+     */
+    void add(Activity activity);
 }

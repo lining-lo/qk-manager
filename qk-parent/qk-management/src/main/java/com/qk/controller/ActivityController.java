@@ -7,9 +7,7 @@ import com.qk.dto.ActivityQueryDto;
 import com.qk.service.ActivityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -30,5 +28,19 @@ public class ActivityController {
         PageResult<Activity> pageResult = activityService.page(activityQueryDto);
         //3 响应Result
         return Result.success(pageResult);
+    }
+
+    /**
+     * 新增活动
+     * @param activity 封装活动信息(包括活动名称、状态)
+     */
+    @PostMapping
+    public Result add(@RequestBody Activity activity) {
+        //1 接收请求参数--->(@RequestBody Activity activity)
+        log.info("新增活动：activity={}", activity);
+        //2 调用service层方法，新增活动
+        activityService.add(activity);
+        //3 响应Result
+        return Result.success();
     }
 }

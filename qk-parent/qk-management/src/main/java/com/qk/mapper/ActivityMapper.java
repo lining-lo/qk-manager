@@ -1,6 +1,7 @@
 package com.qk.mapper;
 import com.qk.dto.ActivityQueryDto;
 import com.qk.entity.Activity;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,4 +13,11 @@ public interface ActivityMapper {
      * @param activityQueryDto     查询条件
      */
     List<Activity> list(ActivityQueryDto activityQueryDto);
+
+    /**
+     * 新增活动
+     * @param activity 封装活动信息
+     */
+    @Insert("INSERT INTO activity(channel, name, start_time, end_time, description, type, discount, voucher, create_time, update_time) VALUES(#{channel}, #{name}, #{startTime}, #{endTime}, #{description}, #{type}, #{discount}, #{voucher}, #{createTime}, #{updateTime})")
+    void insert(Activity activity);
 }
