@@ -23,4 +23,10 @@ public interface CourseMapper {
      */
     @Insert("INSERT INTO course(subject, name, price, target, description, create_time, update_time) VALUES(#{subject}, #{name}, #{price}, #{target}, #{description}, #{createTime}, #{updateTime})")
     void insert(Course course);
+
+    /**
+     * 更新课程信息
+     * @param course 课程实体
+     */
+    void updateById(Course course);
 }

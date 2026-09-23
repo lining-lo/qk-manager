@@ -58,4 +58,16 @@ public class CourseServiceImpl implements CourseService {
         //2 调用mapper层方法，新增课程
         courseMapper.insert(course);
     }
+
+    /**
+     * 修改课程
+     * @param course 课程信息
+     */
+    @Override
+    public void update(Course course) {
+        //1 设置基础属性(更新时间)
+        course.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，修改课程
+        courseMapper.updateById(course);
+    }
 }

@@ -27,4 +27,10 @@ public interface CourseService {
      * @param course 封装课程信息
      */
     void add(Course course);
+
+    /**
+     * 修改课程
+     * @param course 课程信息
+     */
+    void update(Course course);
 }

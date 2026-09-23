@@ -21,4 +21,29 @@
         ORDER BY update_time DESC
     </select>
 
+    <!-- 修改课程信息 -->
+    <update id="updateById" >
+        UPDATE course
+        <set>
+            <if test="subject != null">
+                subject = #{subject},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="target != null">
+                target = #{target},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 </mapper>

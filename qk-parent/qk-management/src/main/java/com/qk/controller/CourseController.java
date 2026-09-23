@@ -62,4 +62,18 @@ public class CourseController {
         return Result.success();
     }
 
+    /**
+     * 修改课程
+     * @param course 课程信息
+     */
+    @PutMapping
+    public Result update(@RequestBody Course course) {
+        //1 接收请求参数--->(@RequestBody Course course)
+        log.info("修改课程：{}", course);
+        //2 调用service层方法，修改课程
+        courseService.update(course);
+        //3 响应Result
+        return Result.success();
+    }
+
 }
