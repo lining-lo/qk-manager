@@ -99,4 +99,18 @@ public class ActivityController {
         //2 响应Result
         return Result.success(activityList);
     }
+
+    /**
+     * 根据活动类型查询活动信息
+     * @param type 活动类型(1: 课程折扣, 2: 代金券)
+     */
+    @GetMapping("/type/{type}")
+    public Result getByType(@PathVariable Integer type) {
+        //1 获取请求参数--->(@PathVariable Integer type)
+        log.info("根据活动类型查询活动信息，type= {}", type);
+        //2 调用service层方法，根据活动类型查询活动信息
+        List<Activity> activityList = activityService.getByType(type);
+        //3 响应Result
+        return Result.success(activityList);
+    }
 }

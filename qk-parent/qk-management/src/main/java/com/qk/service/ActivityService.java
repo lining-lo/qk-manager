@@ -42,4 +42,10 @@ public interface ActivityService {
      * 查询所有活动信息
      */
     List<Activity> list();
+
+    /**
+     * 根据活动类型查询活动
+     * @param type 活动类型(1: 课程折扣, 2: 代金券)
+     */
+    List<Activity> getByType(Integer type);
 }

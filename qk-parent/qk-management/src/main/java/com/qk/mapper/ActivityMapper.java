@@ -43,4 +43,11 @@ public interface ActivityMapper {
      */
     @Delete("DELETE FROM activity WHERE id = #{id}")
     void deleteById(Integer id);
+
+    /**
+     * 根据活动类型查询活动
+     * @param type 活动类型(1: 课程折扣, 2: 代金券)
+     */
+    @Select("SELECT id, channel, name, start_time, end_time, description, type, discount, voucher, create_time, update_time FROM activity WHERE type = #{type}")
+    List<Activity> getByType(Integer type);
 }
