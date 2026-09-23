@@ -3,6 +3,7 @@ import com.qk.dto.ActivityQueryDto;
 import com.qk.entity.Activity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -20,4 +21,12 @@ public interface ActivityMapper {
      */
     @Insert("INSERT INTO activity(channel, name, start_time, end_time, description, type, discount, voucher, create_time, update_time) VALUES(#{channel}, #{name}, #{startTime}, #{endTime}, #{description}, #{type}, #{discount}, #{voucher}, #{createTime}, #{updateTime})")
     void insert(Activity activity);
+
+    /**
+     * 根据ID查询活动
+     * @param id 活动ID
+     * @return 活动实体
+     */
+    @Select("SELECT id, channel, name, start_time, end_time, description, type, discount, voucher, create_time, update_time FROM activity WHERE id = #{id}")
+    Activity getById(Integer id);
 }

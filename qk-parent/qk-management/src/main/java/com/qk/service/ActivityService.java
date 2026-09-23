@@ -16,4 +16,11 @@ public interface ActivityService {
      * @param activity 封装活动信息
      */
     void add(Activity activity);
+
+    /**
+     * 根据ID查询活动
+     * @param id 活动ID
+     * @return 查询结果
+     */
+    Activity getById(Integer id);
 }

@@ -44,4 +44,14 @@ public class ActivityServiceImpl implements ActivityService {
         //2 调用mapper层方法，新增活动
         activityMapper.insert(activity);
     }
+
+    /**
+     * 根据ID查询活动
+     * @param id 活动ID
+     */
+    @Override
+    public Activity getById(Integer id) {
+        //直接调用mapper层方法，根据id查询活动
+        return activityMapper.getById(id);
+    }
 }

@@ -43,4 +43,19 @@ public class ActivityController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 根据ID查询活动
+     * @param id 活动ID
+     * @return 查询结果
+     */
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        //1 获取请求参数--->(@PathVariable Integer id)
+        log.info("根据ID查询活动，id={}", id);
+        //2 调用service层方法，根据ID查询活动
+        Activity activity = activityService.getById(id);
+        //3 响应Result
+        return Result.success(activity);
+    }
 }
