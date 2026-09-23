@@ -91,4 +91,18 @@ public class CourseController {
         return Result.success(course);
     }
 
+    /**
+     * 删除课程
+     * @param id 课程ID
+     */
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id) {
+        //1 接收请求参数--->(@PathVariable Course course)
+        log.info("删除课程，id：{}", id);
+        //2 调用service层方法，删除课程
+        courseService.delete(id);
+        //3 响应Result
+        return Result.success();
+    }
+
 }

@@ -37,4 +37,11 @@ public interface CourseMapper {
      */
     @Select("SELECT id, subject, name, price, target, description, create_time, update_time FROM course WHERE id = #{id}")
     Course getById(Integer id);
+
+    /**
+     * 根据ID删除课程
+     * @param id 课程ID
+     */
+    @Delete("DELETE FROM course WHERE id = #{id}")
+    void deleteById(Integer id);
 }

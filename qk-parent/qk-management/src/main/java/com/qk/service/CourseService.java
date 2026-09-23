@@ -40,4 +40,10 @@ public interface CourseService {
      * @return 查询结果
      */
     Course getById(Integer id);
+
+    /**
+     * 删除课程
+     * @param id 课程ID
+     */
+    void delete(Integer id);
 }
