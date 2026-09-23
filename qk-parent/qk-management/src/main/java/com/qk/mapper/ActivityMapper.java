@@ -29,4 +29,10 @@ public interface ActivityMapper {
      */
     @Select("SELECT id, channel, name, start_time, end_time, description, type, discount, voucher, create_time, update_time FROM activity WHERE id = #{id}")
     Activity getById(Integer id);
+
+    /**
+     * 更新活动信息
+     * @param activity 活动实体
+     */
+    void updateById(Activity activity);
 }

@@ -58,4 +58,18 @@ public class ActivityController {
         //3 响应Result
         return Result.success(activity);
     }
+
+    /**
+     * 修改活动
+     * @param activity 活动信息
+     */
+    @PutMapping
+    public Result update(@RequestBody Activity activity) {
+        //1 接收请求参数--->(@RequestBody Activity activity)
+        log.info("修改活动：activity={}", activity);
+        //2 调用service层方法，修改活动
+        activityService.update(activity);
+        //3 响应Result
+        return Result.success();
+    }
 }

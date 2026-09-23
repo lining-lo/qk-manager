@@ -54,4 +54,16 @@ public class ActivityServiceImpl implements ActivityService {
         //直接调用mapper层方法，根据id查询活动
         return activityMapper.getById(id);
     }
+
+    /**
+     * 修改活动
+     * @param activity 活动信息
+     */
+    @Override
+    public void update(Activity activity) {
+        //1 设置基础属性(更新时间)
+        activity.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，修改活动
+        activityMapper.updateById(activity);
+    }
 }

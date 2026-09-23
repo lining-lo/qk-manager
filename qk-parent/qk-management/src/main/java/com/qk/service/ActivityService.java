@@ -23,4 +23,10 @@ public interface ActivityService {
      * @return 查询结果
      */
     Activity getById(Integer id);
+
+    /**
+     * 修改活动
+     * @param activity 活动信息
+     */
+    void update(Activity activity);
 }
