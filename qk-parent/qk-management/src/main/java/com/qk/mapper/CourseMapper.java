@@ -1,5 +1,5 @@
 package com.qk.mapper;
-import com.qk.domain.Course;
+import com.qk.entity.Course;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

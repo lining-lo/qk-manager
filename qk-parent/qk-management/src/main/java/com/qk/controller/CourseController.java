@@ -1,5 +1,5 @@
 package com.qk.controller;
-import com.qk.domain.Course;
+import com.qk.entity.Course;
 import com.qk.domain.PageResult;
 import com.qk.domain.Result;
 import com.qk.service.CourseService;

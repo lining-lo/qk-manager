@@ -2,7 +2,7 @@ package com.qk.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.qk.domain.Course;
+import com.qk.entity.Course;
 import com.qk.domain.PageResult;
 import com.qk.mapper.CourseMapper;
 import com.qk.service.CourseService;

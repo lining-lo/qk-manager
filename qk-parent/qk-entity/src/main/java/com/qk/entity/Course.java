@@ -1,4 +1,4 @@
-package com.qk.domain;
+package com.qk.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

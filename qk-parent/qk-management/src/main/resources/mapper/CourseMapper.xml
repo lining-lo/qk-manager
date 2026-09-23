@@ -4,7 +4,7 @@
 
     <!--根据条件查询课程
      List<Course> list(Integer subject,String name, Integer target);-->
-    <select id="list" resultType="com.qk.domain.Course">
+    <select id="list" resultType="com.qk.entity.Course">
         SELECT id, subject, name, price, target, description, create_time, update_time
         FROM course
         <where>
