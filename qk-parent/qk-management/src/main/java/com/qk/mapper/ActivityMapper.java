@@ -1,6 +1,7 @@
 package com.qk.mapper;
 import com.qk.dto.ActivityQueryDto;
 import com.qk.entity.Activity;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -35,4 +36,11 @@ public interface ActivityMapper {
      * @param activity 活动实体
      */
     void updateById(Activity activity);
+
+    /**
+     * 根据ID删除活动
+     * @param id 活动ID
+     */
+    @Delete("DELETE FROM activity WHERE id = #{id}")
+    void deleteById(Integer id);
 }

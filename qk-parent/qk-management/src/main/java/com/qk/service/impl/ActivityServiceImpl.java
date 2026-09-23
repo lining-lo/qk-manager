@@ -66,4 +66,14 @@ public class ActivityServiceImpl implements ActivityService {
         //2 调用mapper层方法，修改活动
         activityMapper.updateById(activity);
     }
+
+    /**
+     * 删除活动
+     * @param id 活动ID
+     */
+    @Override
+    public void delete(Integer id) {
+        //调用mapper层方法，根据id删除活动
+        activityMapper.deleteById(id);
+    }
 }

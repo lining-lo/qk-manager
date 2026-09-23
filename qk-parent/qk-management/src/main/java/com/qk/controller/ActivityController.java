@@ -72,4 +72,18 @@ public class ActivityController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 删除活动
+     * @param id 活动ID
+     */
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id) {
+        //1 接收请求参数--->(@PathVariable Activity activity)
+        log.info("删除活动，id={}", id);
+        //2 调用service层方法，删除活动
+        activityService.delete(id);
+        //3 响应Result
+        return Result.success();
+    }
 }

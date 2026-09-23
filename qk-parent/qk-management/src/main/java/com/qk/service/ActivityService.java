@@ -29,4 +29,10 @@ public interface ActivityService {
      * @param activity 活动信息
      */
     void update(Activity activity);
+
+    /**
+     * 删除活动
+     * @param id 活动ID
+     */
+    void delete(Integer id);
 }
