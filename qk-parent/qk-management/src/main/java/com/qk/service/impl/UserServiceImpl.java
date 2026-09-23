@@ -3,10 +3,12 @@ package com.qk.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qk.domain.PageResult;
+import com.qk.dto.UserLoginDto;
 import com.qk.dto.UserQueryDto;
 import com.qk.entity.User;
 import com.qk.mapper.UserMapper;
 import com.qk.service.UserService;
+import com.qk.vo.LoginResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -88,5 +90,40 @@ public class UserServiceImpl implements UserService {
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()+"123").getBytes()));
         //3 调用mapper层方法，修改用户信息
         userMapper.updateById(user);
+    }
+
+    /**
+     用户登录
+     @param loginDto 封装用户名和密码
+     */
+    @Override
+    public LoginResultVo login(UserLoginDto loginDto) {
+        //1 根据用户名查询用户信息
+        User user = userMapper.getByUsername(loginDto.getUsername());
+        if(user==null){
+            //没查到User，说明用户不存在
+            return null;
+        }
+        //2 校验密码是否正确
+        String password = DigestUtils.md5DigestAsHex(loginDto.getPassword().getBytes());
+        if(!password.equals(user.getPassword())){
+            //密码不相等，说明密码错误
+            return null;
+        }
+        //3 校验状态是否是启用
+        Integer status = user.getStatus();
+        if(status==0){
+            //账号被禁用了
+            return null;
+        }
+        //4 封装登录结果LoginResultVo对象
+        LoginResultVo loginResultVo = new LoginResultVo();
+        loginResultVo.setId(user.getId());
+        loginResultVo.setName(user.getName());
+        loginResultVo.setUsername(user.getUsername());
+        loginResultVo.setImage(user.getImage());
+        loginResultVo.setRoleLabel(user.getRoleLabel());  //角色标签
+        loginResultVo.setToken(""); //令牌字符串，作为登录的凭证
+        return loginResultVo;
     }
 }

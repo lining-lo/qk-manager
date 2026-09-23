@@ -46,4 +46,11 @@ public interface UserMapper {
      * @param user 用户实体
      */
     void updateById(User user);
+
+    /**
+     根据用户名查询用户信息
+     * @param username 用户名
+     */
+    @Select("select u.*, r.label as role_label from user u left join role r on u.role_id = r.id where u.username = #{username}")
+    User getByUsername(String username);
 }

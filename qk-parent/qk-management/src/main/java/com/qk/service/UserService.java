@@ -1,8 +1,10 @@
 package com.qk.service;
 
 import com.qk.domain.PageResult;
+import com.qk.dto.UserLoginDto;
 import com.qk.dto.UserQueryDto;
 import com.qk.entity.User;
+import com.qk.vo.LoginResultVo;
 
 import java.util.List;
 
@@ -43,5 +45,9 @@ public interface UserService {
      */
     void update(User user);
 
-
+    /**
+     * 用户登录
+     * @param: userLoginDto 封装用户名和密码
+     */
+    LoginResultVo login(UserLoginDto loginDto);
 }
