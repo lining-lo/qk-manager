@@ -76,4 +76,17 @@ public class RoleController {
         return Result.success(role);
     }
 
+    /**
+     * 修改角色
+     * @param role 角色信息
+     */
+    @PutMapping
+    public Result update(@RequestBody Role role) {
+        //1 接收请求参数--->(@RequestBody Role role)
+        log.info("修改角色：{}", role);
+        //2 调用service层方法，修改角色
+        roleService.update(role);
+        //3 响应Result
+        return Result.success();
+    }
 }

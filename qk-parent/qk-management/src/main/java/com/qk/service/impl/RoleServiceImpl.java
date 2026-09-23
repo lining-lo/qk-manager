@@ -65,4 +65,16 @@ public class RoleServiceImpl implements RoleService {
         //直接调用mapper层方法，根据id查询角色
         return roleMapper.getById(id);
     }
+
+    /**
+     * 修改角色
+     * @param role 角色信息
+     */
+    @Override
+    public void update(Role role) {
+        //1 设置基础属性(更新时间)
+        role.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，修改角色
+        roleMapper.updateById(role);
+    }
 }

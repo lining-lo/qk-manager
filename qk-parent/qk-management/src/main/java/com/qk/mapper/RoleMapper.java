@@ -29,4 +29,10 @@ public interface RoleMapper {
      */
     @Select("SELECT id, name, label, remark, create_time , update_time FROM role WHERE id = #{id}")
     Role getById(Integer id);
+
+    /**
+     * 更新角色信息
+     * @param role 角色实体
+     */
+    void updateById(Role role);
 }

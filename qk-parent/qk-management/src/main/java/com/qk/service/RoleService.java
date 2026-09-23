@@ -34,4 +34,10 @@ public interface RoleService {
      * @return 查询结果
      */
     Role getById(Integer id);
+
+    /**
+     * 修改角色
+     * @param role 角色信息
+     */
+    void update(Role role);
 }
