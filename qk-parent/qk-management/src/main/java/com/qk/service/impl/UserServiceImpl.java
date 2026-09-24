@@ -9,13 +9,16 @@ import com.qk.entity.User;
 import com.qk.exception.BusinessException;
 import com.qk.mapper.UserMapper;
 import com.qk.service.UserService;
+import com.qk.utils.JwtUtils;
 import com.qk.vo.LoginResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户服务实现类
@@ -103,12 +106,12 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.getByUsername(userLoginDto.getUsername());
         // 判断用户是否存在
         if (user == null) {
-            throw new BusinessException("用户名不存在!"); // 用户不存在
+            throw new BusinessException("用户名不存在"); // 用户不存在
         }
         //获取登录密码并加密处理。
         String password = DigestUtils.md5DigestAsHex(userLoginDto.getPassword().getBytes());
         if (!user.getPassword().equals(password )) {
-            throw new BusinessException("密码错误!"); // 密码错误
+            throw new BusinessException("密码错误"); // 密码错误
         }
 
         // 校验用户状态
@@ -117,14 +120,22 @@ public class UserServiceImpl implements UserService {
         }
 
         // 构造登录结果
-        //4 封装登录结果LoginResultVo对象
-        LoginResultVo loginResultVo = new LoginResultVo();
+        LoginResultVo loginResultVo= new LoginResultVo();
         loginResultVo.setId(user.getId());
-        loginResultVo.setName(user.getName());
         loginResultVo.setUsername(user.getUsername());
+        loginResultVo.setName(user.getName());
         loginResultVo.setImage(user.getImage());
-        loginResultVo.setRoleLabel(user.getRoleLabel());  //角色标签
-        loginResultVo.setToken(""); //令牌字符串，作为登录的凭证
+        loginResultVo.setRoleLabel(user.getRoleLabel());
+
+        //需求：生成令牌字符串，保存到loginResultVo中响应给客户端
+        //①、创建map集合，设置令牌要存的数据，后期谁登录成功就保存谁的信息
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id",user.getId());
+        claims.put("username",user.getUsername());
+        //②、调用JwtUtils工具类方法，生成令牌字符串
+        String jwt = JwtUtils.generateToken(claims);
+        //③、封装令牌字符串到loginResultVo中响应给客户端
+        loginResultVo.setToken(jwt); //令牌字符串，作为登录的凭证
         return loginResultVo;
     }
 }

@@ -45,6 +45,7 @@
         <jaxb.version>2.3.1</jaxb.version>
         <activation.version>1.1.1</activation.version>
         <jaxb.runtime.version>2.3.3</jaxb.runtime.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
     <!--在模块种引入依赖jar包，所有的子模块都会继承下去。一般配置所有子模块都需要的依赖jar包坐标-->
@@ -76,6 +77,12 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.version}</version>
+            </dependency>
+            <!--JWT依赖-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
             <!--阿里云oss-->
             <dependency>
