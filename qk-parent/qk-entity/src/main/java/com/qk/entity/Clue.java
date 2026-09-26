@@ -26,8 +26,12 @@ public class Clue {
     private Integer level; // 意向等级, 1:近期学习、2:打算学习(考虑中)、3:进行了解、4:打酱油
     private LocalDateTime nextTime; // 下次跟进时间
 
-    @TableField(fill = FieldFill.INSERT) //设置自动填充策略，新增时填充
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime; // 创建时间
-    @TableField(fill = FieldFill.INSERT_UPDATE)  //设置自动填充策略，新增和修改时时填充
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime; // 修改时间
+
+    //扩展字段-归属人姓名
+    @TableField(exist = false)
+    private String assignName;
 }
