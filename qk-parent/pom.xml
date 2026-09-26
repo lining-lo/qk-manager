@@ -39,13 +39,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!--定义义子模块需要使用的jar包的版本号，然后在dependencyManagement中引用-->
-        <mybatis.version>4.1.0</mybatis.version>
+        <!--<mybatis.version>4.1.0</mybatis.version>-->
         <pagehelper.version>4.1.1</pagehelper.version>
         <aliyun.sdk.version>3.17.4</aliyun.sdk.version>
         <jaxb.version>2.3.1</jaxb.version>
         <activation.version>1.1.1</activation.version>
         <jaxb.runtime.version>2.3.3</jaxb.runtime.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <mybatis.plus.version>3.5.17</mybatis.plus.version>
     </properties>
 
     <!--在模块种引入依赖jar包，所有的子模块都会继承下去。一般配置所有子模块都需要的依赖jar包坐标-->
@@ -61,22 +62,28 @@
     <dependencyManagement>
         <dependencies>
             <!--mybatis 起步依赖-->
-            <dependency>
+            <!--<dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
-            </dependency>
+            </dependency>-->
             <!--mybatis 单元测试起步依赖-->
-            <dependency>
+           <!-- <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter-test</artifactId>
                 <version>${mybatis.version}</version>
-            </dependency>
+            </dependency>-->
             <!--分页助手-->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.version}</version>
+            </dependency>
+            <!--mybatis-plus 起步依赖-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
             </dependency>
             <!--JWT依赖-->
             <dependency>

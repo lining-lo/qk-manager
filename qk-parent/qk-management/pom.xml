@@ -42,16 +42,16 @@
             <scope>runtime</scope>
         </dependency>
         <!--mybatis 起步依赖-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
+        </dependency>-->
         <!--mybatis 单元测试起步依赖-->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <!--pagehelper分页助手-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>

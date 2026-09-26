@@ -11,11 +11,21 @@ spring:
       max-request-size: 100MB #请求总大小最大100MB
 
 #mybatis配置
-mybatis:
+#mybatis:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # mybatis日志输出
+#    map-underscore-to-camel-case: true    # 开启驼峰命名映射
+#  mapper-locations: classpath:mapper/*.xml   # mapper映射文件位置
+
+#mybatis-plus配置
+mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # mybatis日志输出
-    map-underscore-to-camel-case: true    # 开启驼峰命名映射
-  mapper-locations: classpath:mapper/*.xml   # mapper映射文件位置
+    map-underscore-to-camel-case: true # 开启驼峰命名映射
+  mapper-locations: mapper/*.xml # mapper映射文件位置
+  global-config:
+    db-config:
+      id-type: auto # 主键自动增长
 
 #阿里云OSS
 aliyun:
