@@ -35,4 +35,8 @@ public class Clue {
     //扩展字段-线索跟进记录列表
     @TableField(exist = false)
     private List<ClueTrackRecord> trackRecords;
+
+    //扩展字段-跟进记录
+    @TableField(exist = false)
+    private String record;
 }

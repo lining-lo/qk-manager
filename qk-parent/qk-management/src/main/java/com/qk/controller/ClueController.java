@@ -80,4 +80,18 @@ public class ClueController {
         //3 响应Result
         return Result.success(clue);
     }
+
+    /**
+     * 跟进线索
+     * @param clue 线索信息
+     */
+    @PutMapping
+    public Result trackClue(@RequestBody Clue clue) {
+        //1 接收请求参数--->(@RequestBody Clue clue)
+        log.info("跟进线索: {}", clue);
+        //2 调用service层方法，跟进线索(保存数据)
+        clueService.trackClue(clue);
+        //3 响应Result
+        return Result.success();
+    }
 }

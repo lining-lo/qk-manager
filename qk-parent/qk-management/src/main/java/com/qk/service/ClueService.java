@@ -19,4 +19,13 @@ public interface ClueService extends IService<Clue> {
      * @return 线索详细信息
      */
     Clue getClueById(Integer id);
+
+    /**
+     * 跟进线索
+     *
+     * @param clue 线索信息
+     */
+    void trackClue(Clue clue);
+
+    
 }

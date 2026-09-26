@@ -5,16 +5,23 @@ import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.qk.domain.PageResult;
 import com.qk.dto.ClueQueryDto;
 import com.qk.entity.Clue;
+import com.qk.entity.ClueTrackRecord;
 import com.qk.mapper.ClueMapper;
+import com.qk.mapper.ClueTrackRecordMapper;
 import com.qk.service.ClueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements ClueService {
 
     @Autowired
     private ClueMapper clueMapper;
+
+    @Autowired
+    private ClueTrackRecordMapper clueTrackRecordMapper;
 
     /**
      * 根据条件分页查询
@@ -38,6 +45,30 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
     @Override
     public Clue getClueById(Integer id) {
         return clueMapper.getById(id);
+    }
+
+    /**
+     * 跟进线索
+     * @param clue 线索信息
+     */
+    @Override
+    public void trackClue(Clue clue) {
+        //1 调用ClueMapper更新线索状态为"跟进中"（跟进中状态值为3）
+        clue.setStatus(3); // 跟进中
+        clue.setUpdateTime(LocalDateTime.now()); // 更新时间
+        this.updateById(clue);
+        //2 封装跟进记录
+        ClueTrackRecord trackRecord = new ClueTrackRecord();
+        trackRecord.setClueId(clue.getId());
+        trackRecord.setUserId(1); // 当前用户ID - 假设当前用户ID为1 TODO 后面优化调整
+        trackRecord.setSubject(clue.getSubject());
+        trackRecord.setLevel(clue.getLevel());
+        trackRecord.setRecord(clue.getRecord());
+        trackRecord.setNextTime(clue.getNextTime());
+        trackRecord.setType(1); // 正常跟进
+        trackRecord.setCreateTime(LocalDateTime.now());
+        //3 调用ClueTrackRecordMapper层方法，保存更加记录
+        clueTrackRecordMapper.insert(trackRecord);
     }
 
 }
