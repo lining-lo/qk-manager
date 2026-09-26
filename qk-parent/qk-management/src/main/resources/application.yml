@@ -9,7 +9,10 @@ spring:
     multipart:
       max-file-size: 10MB #单个文件最大10MB
       max-request-size: 100MB #请求总大小最大100MB
-
+#spring事务管理日志
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
 #mybatis配置
 #mybatis:
 #  configuration:

@@ -12,6 +12,7 @@ import com.qk.service.ClueService;
 import com.qk.utils.CurrentUserHoler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -52,12 +53,17 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
      * 跟进线索
      * @param clue 线索信息
      */
+    @Transactional(rollbackFor = Exception.class) //指定要回滚的异常类型
     @Override
     public void trackClue(Clue clue) {
         //1 调用ClueMapper更新线索状态为"跟进中"（跟进中状态值为3）
         clue.setStatus(3); // 跟进中
         clue.setUpdateTime(LocalDateTime.now()); // 更新时间
         this.updateById(clue);
+
+        //人为制造异常模拟
+        //int i = 1/0;
+
         //2 封装跟进记录
         ClueTrackRecord trackRecord = new ClueTrackRecord();
         trackRecord.setClueId(clue.getId());
