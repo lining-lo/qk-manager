@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.qk.domain.PageResult;
 import com.qk.dto.ClueQueryDto;
+import com.qk.entity.Business;
 import com.qk.entity.Clue;
 import com.qk.entity.ClueTrackRecord;
+import com.qk.mapper.BusinessMapper;
 import com.qk.mapper.ClueMapper;
 import com.qk.mapper.ClueTrackRecordMapper;
 import com.qk.service.ClueService;
 import com.qk.utils.CurrentUserHoler;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,9 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
 
     @Autowired
     private ClueTrackRecordMapper clueTrackRecordMapper;
+
+    @Autowired
+    private BusinessMapper businessMapper;
 
     /**
      * 根据条件分页查询
@@ -78,4 +84,30 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         clueTrackRecordMapper.insert(trackRecord);
     }
 
+    /**
+     * 将线索转为商机
+     * @param id 线索ID
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void convertToBusiness(Integer id) {
+        // 1. 根据id线索信息
+        Clue clue = clueMapper.selectById(id);
+        //2 修改线索状态
+        clue.setStatus(5); //转为商机
+        clue.setUpdateTime(LocalDateTime.now());
+        this.updateById(clue);
+        // 3. 创建商机信息
+        Business business = new Business();
+        BeanUtils.copyProperties(clue, business); //将clue对象中的属性值拷贝给business对象
+        business.setId(null); //  设置商机ID为空, 表示为新增商机, 主键自动增长，否则存的是线索id
+        business.setUserId(null); //  设置商机归属人为空
+        business.setNextTime(null); //  设置下次联系时间为空
+        business.setStatus(1);  // 设置商机状态为"待分配"
+        business.setClueId(clue.getId()); //  设置商机对应的线索ID
+        business.setCreateTime(LocalDateTime.now());
+        business.setUpdateTime(LocalDateTime.now());
+        // 5. 插入商机记录
+        businessMapper.insert(business);
+    }
 }

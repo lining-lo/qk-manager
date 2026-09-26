@@ -27,5 +27,9 @@ public interface ClueService extends IService<Clue> {
      */
     void trackClue(Clue clue);
 
-    
+    /**
+     * 将线索转为商机
+     * @param id 线索ID
+     */
+    void convertToBusiness(Integer id);
 }

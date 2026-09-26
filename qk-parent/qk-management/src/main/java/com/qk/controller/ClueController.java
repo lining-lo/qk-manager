@@ -94,4 +94,19 @@ public class ClueController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 将线索转为商机
+     * @param id 线索ID
+     * @return 操作结果
+     */
+    @PutMapping("/toBusiness/{id}")
+    public Result convertToBusiness(@PathVariable Integer id) {
+        //1 接收请求参数--->(@PathVariable Integer id)
+        log.info("将线索转为商机, id: {}", id);
+        //2 调用service层方法，将线索转为商机
+        clueService.convertToBusiness(id);
+        //3 响应Result
+        return Result.success();
+    }
 }
