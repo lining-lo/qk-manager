@@ -1,6 +1,5 @@
 package com.qk.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
@@ -20,7 +19,9 @@ public class ClueTrackRecord {
     private LocalDateTime nextTime; // 下次跟进时间
     private Integer type; // 跟进类型, 1:正常跟进、0:伪线索
     private Integer falseReason; // 伪线索原因, 1:空号、2:停机、3:竞品、4:无法联系、5:其他
-
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime; // 创建时间
+
+    //扩展字段-跟进人姓名
+    @TableField(exist = false)
+    private String assignName;
 }

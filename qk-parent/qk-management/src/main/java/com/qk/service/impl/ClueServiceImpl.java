@@ -30,4 +30,14 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         return new PageResult<Clue>(p.getTotal(), p.getRecords());
     }
 
+    /**
+     * 根据ID查询线索详细信息(包含线索跟进列表)
+     * @param id 线索ID
+     * @return 线索详细信息
+     */
+    @Override
+    public Clue getClueById(Integer id) {
+        return clueMapper.getById(id);
+    }
+
 }

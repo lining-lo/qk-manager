@@ -65,4 +65,19 @@ public class ClueController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 根据ID查询线索详细信息(包含线索跟进列表)
+     * @param id 线索ID
+     * @return 线索详细信息
+     */
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        //1 接收请求参数--->(@PathVariable Integer id)
+        log.info("根据ID查询线索详细信息, id: {}", id);
+        //2 调用service层方法，查询数据
+        Clue clue = clueService.getClueById(id);
+        //3 响应Result
+        return Result.success(clue);
+    }
 }

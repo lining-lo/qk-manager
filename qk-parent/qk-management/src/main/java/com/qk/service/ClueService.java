@@ -13,5 +13,10 @@ public interface ClueService extends IService<Clue> {
      */
     PageResult<Clue> pageQuery(ClueQueryDto clueQueryDto);
 
-
+    /**
+     * 根据ID查询线索详细信息(包含线索跟进列表)
+     * @param id 线索ID
+     * @return 线索详细信息
+     */
+    Clue getClueById(Integer id);
 }

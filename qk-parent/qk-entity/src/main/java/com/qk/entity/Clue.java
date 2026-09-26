@@ -1,10 +1,10 @@
 package com.qk.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 线索实体类
@@ -25,13 +25,14 @@ public class Clue {
     private Integer subject; // 意向学科，1:ai智能应用开发(java), 2:ai大模型开发(python)，3:ai鸿蒙开发，4:ai大数据，5:ai嵌入式，6:ai测试，7:ai运维
     private Integer level; // 意向等级, 1:近期学习、2:打算学习(考虑中)、3:进行了解、4:打酱油
     private LocalDateTime nextTime; // 下次跟进时间
-
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime; // 创建时间
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime; // 修改时间
 
     //扩展字段-归属人姓名
     @TableField(exist = false)
     private String assignName;
+
+    //扩展字段-线索跟进记录列表
+    @TableField(exist = false)
+    private List<ClueTrackRecord> trackRecords;
 }

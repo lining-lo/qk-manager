@@ -28,4 +28,47 @@
         </where>
         order by c.update_time desc
     </select>
+
+    <!--定义ResultMap封装线索详情，autoMapping="true"：字段名和属性名相同或者符合驼峰命名规则就自动映射-->
+    <resultMap id="clueResultMap" type="com.qk.entity.Clue" autoMapping="true">
+        <!--id标签：将主键id值映射到(封装)clue对象的id属性身上【必须】-->
+        <id column="id" property="id"/>
+        <!--result标签：将普通字段值映射到clue对象的其他属性身上【非必须，可以使用autoMapping简化】-->
+        <!--<result column="phone" property="phone"/>-->
+        <!--给Clue中的private List<ClueTrackRecord> trackRecords属性封装数据-->
+        <collection property="trackRecords" ofType="com.qk.entity.ClueTrackRecord">
+            <id column="ctr_id" property="id"/>
+            <result column="ctr_clue_id" property="clueId"/>
+            <result column="ctr_user_id" property="userId"/>
+            <result column="ctr_subject" property="subject"/>
+            <result column="ctr_level"   property="level"/>
+            <result column="ctr_record" property="record"/>
+            <result column="ctr_next_time" property="nextTime"/>
+            <result column="ctr_type" property="type"/>
+            <result column="ctr_false_reason" property="falseReason"/>
+            <result column="tr_create_time" property="createTime"/>
+            <result column="tr_assign_name" property="assignName"/>
+        </collection>
+    </resultMap>
+
+    <!-- 根据ID查询线索详细信息(包含线索跟进列表) Clue getById(Integer id);-->
+    <select id="getById" resultMap="clueResultMap">
+        SELECT c.*,
+               ctr.id           ctr_id,
+               ctr.clue_id      ctr_clue_id,
+               ctr.user_id      ctr_user_id,
+               ctr.subject      ctr_subject,
+               ctr.level        ctr_level,
+               ctr.record       ctr_record,
+               ctr.next_time    ctr_next_time,
+               ctr.type         ctr_type,
+               ctr.false_reason ctr_false_reason,
+               ctr.create_time  tr_create_time,
+               u.name           tr_assign_name
+        FROM clue c
+                 LEFT JOIN clue_track_record ctr ON c.id = ctr.clue_id
+                 LEFT JOIN user u ON ctr.user_id = u.id
+        WHERE c.id = #{id}
+        ORDER BY ctr.create_time DESC
+    </select>
 </mapper>
