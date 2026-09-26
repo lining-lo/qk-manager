@@ -9,6 +9,7 @@ import com.qk.entity.ClueTrackRecord;
 import com.qk.mapper.ClueMapper;
 import com.qk.mapper.ClueTrackRecordMapper;
 import com.qk.service.ClueService;
+import com.qk.utils.CurrentUserHoler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,7 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, Clue> implements Cl
         //2 封装跟进记录
         ClueTrackRecord trackRecord = new ClueTrackRecord();
         trackRecord.setClueId(clue.getId());
-        trackRecord.setUserId(1); // 当前用户ID - 假设当前用户ID为1 TODO 后面优化调整
+        trackRecord.setUserId(CurrentUserHoler.getCurrentUser()); //当前登录用户ID
         trackRecord.setSubject(clue.getSubject());
         trackRecord.setLevel(clue.getLevel());
         trackRecord.setRecord(clue.getRecord());
