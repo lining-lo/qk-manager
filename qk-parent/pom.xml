@@ -85,6 +85,18 @@
                 <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
+            <!--mybatis-plus 注解依赖-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <!--mybatis-plus 分页助手-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
             <!--JWT依赖-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>

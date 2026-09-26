@@ -52,7 +52,17 @@
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>-->
-        <!--pagehelper分页助手-->
+        <!--mybatis-plus 起步依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
+        </dependency>
+        <!--mybatis-plus 分页助手-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+        </dependency>
+        <!--pagehelper分页助手(兼容mybatis)-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
