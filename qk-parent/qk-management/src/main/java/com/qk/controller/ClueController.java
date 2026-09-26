@@ -46,4 +46,23 @@ public class ClueController {
         //3 响应Result
         return Result.success(pageResult);
     }
+
+    /**
+     分配线索
+     * @param clueId 线索id
+     * @param userId 用户id
+     */
+    @PutMapping("/assign/{clueId}/{userId}")
+    public Result assign(@PathVariable Integer clueId,@PathVariable Integer userId){
+        //1 接收请求参数-->(@PathVariable Integer clueId,@PathVariable Integer userId)
+        log.info("分配线索：clueId={}，userId={}", clueId, userId);
+        //2 调用service，修改线索（分配线索）
+        Clue clue = new Clue();  //封装要修改的数据以及条件id
+        clue.setId(clueId);
+        clue.setUserId(userId);
+        clue.setStatus(2);
+        clueService.updateById(clue); //update clue set user_id= ?,status=2 where id=?
+        //3 响应Result
+        return Result.success();
+    }
 }
