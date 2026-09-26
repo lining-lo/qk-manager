@@ -94,4 +94,18 @@ public class UserController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 根据角色查询用户列表
+     * @param roleLabel 角色标签
+     */
+    @GetMapping("/role/{roleLabel}")
+    public Result getByRole(@PathVariable String roleLabel){
+        //1 获取请求参数--->(@PathVariable String roleLabel)
+        log.info("根据角色查询用户列表: {}", roleLabel);
+        //2 调用service层方法，根据角色查询用户列表
+        List<User> userList = userService.getByRole(roleLabel);
+        //3 响应Result
+        return Result.success(userList);
+    }
 }

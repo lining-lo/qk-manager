@@ -50,4 +50,10 @@ public interface UserService {
      * @param: userLoginDto 封装用户名和密码
      */
     LoginResultVo login(UserLoginDto loginDto);
+
+    /**
+     * 根据角色查询用户列表
+     * @param roleLabel 角色标签
+     */
+    List<User> getByRole(String roleLabel);
 }

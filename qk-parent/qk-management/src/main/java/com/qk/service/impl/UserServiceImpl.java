@@ -138,4 +138,13 @@ public class UserServiceImpl implements UserService {
         loginResultVo.setToken(jwt); //令牌字符串，作为登录的凭证
         return loginResultVo;
     }
+
+    /**
+     * 根据角色查询用户列表
+     * @param roleLabel 角色标签
+     */
+    @Override
+    public List<User> getByRole(String roleLabel) {
+        return userMapper.getByRole(roleLabel);
+    }
 }
