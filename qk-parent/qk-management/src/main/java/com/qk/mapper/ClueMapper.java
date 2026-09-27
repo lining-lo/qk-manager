@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qk.dto.ClueQueryDto;
 import com.qk.entity.Clue;
+import com.qk.vo.OverviewVO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -19,4 +20,10 @@ public interface ClueMapper extends BaseMapper<Clue> {
      * @return 线索详细信息
      */
     Clue getById(Integer id);
+
+    /**
+     * 获取线索总览数据
+     * @return 线索总览数据
+     */
+    OverviewVO getClueOverviewData();
 }

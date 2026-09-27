@@ -71,4 +71,16 @@
         WHERE c.id = #{id}
         ORDER BY ctr.create_time DESC
     </select>
+
+    <!-- 获取线索总览数据 -->
+    <select id="getClueOverviewData" resultType="com.qk.vo.OverviewVO">
+        select
+            count(1) as clue_total,
+            count(if(status = 1, 1, null)) as clue_wait_allot,
+            count(if(status = 2, 1, null)) as clue_wait_follow,
+            count(if(status = 3, 1, null)) as clue_following,
+            count(if(status = 4, 1, null)) as clue_false,
+            count(if(status = 5, 1, null)) as clue_convert_business
+        from clue;
+    </select>
 </mapper>
