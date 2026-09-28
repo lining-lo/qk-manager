@@ -110,4 +110,22 @@ class CustomerControllerTest {
         assertThat(customer.getSubject()).isEqualTo(1);
         assertThat(customer.getCourseId()).isEqualTo(1);
     }
+
+    @Test
+    void getByIdReturnsCustomer() throws Exception {
+        Customer customer = new Customer();
+        customer.setId(21);
+        customer.setPhone("13567210011");
+        customer.setName("库家明");
+        when(customerService.getCustomerById(21)).thenReturn(customer);
+
+        mockMvc.perform(get("/customers/21"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.data.id").value(21))
+                .andExpect(jsonPath("$.data.phone").value("13567210011"))
+                .andExpect(jsonPath("$.data.name").value("库家明"));
+
+        verify(customerService).getCustomerById(21);
+    }
 }

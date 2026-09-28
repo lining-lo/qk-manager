@@ -9,6 +9,7 @@ import com.qk.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,5 +50,19 @@ public class CustomerController {
         customerService.add(customer);
         //3 响应Result
         return Result.success();
+    }
+
+    /**
+     * 根据ID查询客户
+     * @param id 客户ID
+     */
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        //1 接收请求参数
+        log.info("根据ID查询客户: id={}", id);
+        //2 调用service层方法，查询客户
+        Customer customer = customerService.getCustomerById(id);
+        //3 响应Result
+        return Result.success(customer);
     }
 }

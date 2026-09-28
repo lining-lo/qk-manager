@@ -14,6 +14,13 @@ public interface CustomerService extends IService<Customer> {
     void add(Customer customer);
 
     /**
+     * 根据ID查询客户
+     * @param id 客户ID
+     * @return 客户信息
+     */
+    Customer getCustomerById(Integer id);
+
+    /**
      * 根据条件分页查询客户
      * @param customerQueryDto 封装查询条件和分页参数
      * @return 分页结果

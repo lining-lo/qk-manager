@@ -72,4 +72,16 @@ class CustomerServiceImplTest {
         assertThat(savedCustomer.getCreateTime()).isNotNull();
         assertThat(savedCustomer.getUpdateTime()).isNotNull();
     }
+
+    @Test
+    void getCustomerByIdReturnsMapperResult() {
+        Customer customer = new Customer();
+        customer.setId(21);
+        when(customerMapper.selectById(21)).thenReturn(customer);
+
+        Customer result = customerService.getCustomerById(21);
+
+        assertThat(result).isSameAs(customer);
+        verify(customerMapper).selectById(21);
+    }
 }
