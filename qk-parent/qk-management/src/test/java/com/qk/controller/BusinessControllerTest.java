@@ -20,6 +20,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -112,5 +113,15 @@ class BusinessControllerTest {
         assertThat(business.getDegree()).isEqualTo(4);
         assertThat(business.getJobStatus()).isEqualTo(1);
         assertThat(business.getCourseId()).isEqualTo(1);
+    }
+
+    @Test
+    void assignPassesPathParametersAndReturnsSuccess() throws Exception {
+        mockMvc.perform(put("/businesses/assign/30/22"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.msg").value("success"));
+
+        verify(businessService).assign(30, 22);
     }
 }

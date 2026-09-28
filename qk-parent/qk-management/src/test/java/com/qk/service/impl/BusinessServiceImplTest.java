@@ -74,4 +74,17 @@ class BusinessServiceImplTest {
         assertThat(savedBusiness.getCreateTime()).isNotNull();
         assertThat(savedBusiness.getUpdateTime()).isNotNull();
     }
+
+    @Test
+    void assignSetsOwnerAndStatusThenUpdatesBusiness() {
+        businessService.assign(30, 22);
+
+        ArgumentCaptor<Business> businessCaptor = ArgumentCaptor.forClass(Business.class);
+        verify(businessMapper).updateById(businessCaptor.capture());
+        Business business = businessCaptor.getValue();
+        assertThat(business.getId()).isEqualTo(30);
+        assertThat(business.getUserId()).isEqualTo(22);
+        assertThat(business.getStatus()).isEqualTo(2);
+        assertThat(business.getUpdateTime()).isNotNull();
+    }
 }

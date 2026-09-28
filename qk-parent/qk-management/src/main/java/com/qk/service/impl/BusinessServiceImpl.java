@@ -33,6 +33,23 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     }
 
     /**
+     * 分配商机
+     * @param businessId 商机ID
+     * @param userId 用户ID
+     */
+    @Override
+    public void assign(Integer businessId, Integer userId) {
+        //1 封装要修改的数据以及条件ID
+        Business business = new Business();
+        business.setId(businessId);
+        business.setUserId(userId);
+        business.setStatus(2); //待跟进
+        business.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，分配商机
+        businessMapper.updateById(business);
+    }
+
+    /**
      * 根据条件分页查询商机
      * @param businessQueryDto 封装查询条件和分页参数
      * @return 分页结果

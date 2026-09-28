@@ -14,6 +14,13 @@ public interface BusinessService extends IService<Business> {
     void add(Business business);
 
     /**
+     * 分配商机
+     * @param businessId 商机ID
+     * @param userId 用户ID
+     */
+    void assign(Integer businessId, Integer userId);
+
+    /**
      * 根据条件分页查询商机
      * @param businessQueryDto 封装查询条件和分页参数
      * @return 分页结果

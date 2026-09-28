@@ -9,7 +9,9 @@ import com.qk.service.BusinessService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +49,22 @@ public class BusinessController {
         log.info("新增商机: {}", business);
         //2 调用service层方法，新增商机
         businessService.add(business);
+        //3 响应Result
+        return Result.success();
+    }
+
+    /**
+     * 分配商机
+     * @param businessId 商机ID
+     * @param userId 用户ID
+     */
+    @Log
+    @PutMapping("/assign/{businessId}/{userId}")
+    public Result assign(@PathVariable Integer businessId, @PathVariable Integer userId) {
+        //1 接收请求参数
+        log.info("分配商机: businessId={}, userId={}", businessId, userId);
+        //2 调用service层方法，分配商机
+        businessService.assign(businessId, userId);
         //3 响应Result
         return Result.success();
     }
