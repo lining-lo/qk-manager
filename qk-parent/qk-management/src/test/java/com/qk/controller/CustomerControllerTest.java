@@ -20,6 +20,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -127,5 +128,43 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$.data.name").value("库家明"));
 
         verify(customerService).getCustomerById(21);
+    }
+
+    @Test
+    void updateReceivesRequestBodyAndReturnsSuccess() throws Exception {
+        String requestBody = """
+                {
+                    "id": 21,
+                    "phone": "13567210012",
+                    "channel": 1,
+                    "name": "库明",
+                    "gender": 1,
+                    "age": 22,
+                    "wechat": "kujiaming1121",
+                    "qq": "3353439142",
+                    "degree": 4,
+                    "jobStatus": 1,
+                    "subject": 1,
+                    "courseId": 1,
+                    "businessId": null,
+                    "createTime": "2025-06-01T21:55:50",
+                    "updateTime": "2025-06-09T16:11:24"
+                }
+                """;
+
+        mockMvc.perform(put("/customers")
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.msg").value("success"));
+
+        ArgumentCaptor<Customer> customerCaptor = ArgumentCaptor.forClass(Customer.class);
+        verify(customerService).updateCustomer(customerCaptor.capture());
+        Customer customer = customerCaptor.getValue();
+        assertThat(customer.getId()).isEqualTo(21);
+        assertThat(customer.getPhone()).isEqualTo("13567210012");
+        assertThat(customer.getName()).isEqualTo("库明");
+        assertThat(customer.getJobStatus()).isEqualTo(1);
     }
 }

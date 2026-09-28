@@ -21,6 +21,12 @@ public interface CustomerService extends IService<Customer> {
     Customer getCustomerById(Integer id);
 
     /**
+     * 修改客户信息
+     * @param customer 封装客户信息
+     */
+    void updateCustomer(Customer customer);
+
+    /**
      * 根据条件分页查询客户
      * @param customerQueryDto 封装查询条件和分页参数
      * @return 分页结果

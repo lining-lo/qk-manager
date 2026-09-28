@@ -42,6 +42,19 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
     }
 
     /**
+     * 修改客户信息
+     * @param customer 封装客户信息
+     */
+    @Override
+    public void updateCustomer(Customer customer) {
+        //1 设置更新时间，避免请求参数覆盖创建时间
+        customer.setCreateTime(null);
+        customer.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，修改客户信息
+        customerMapper.updateById(customer);
+    }
+
+    /**
      * 根据条件分页查询客户
      * @param customerQueryDto 封装查询条件和分页参数
      * @return 分页结果

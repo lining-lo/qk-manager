@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,5 +65,20 @@ public class CustomerController {
         Customer customer = customerService.getCustomerById(id);
         //3 响应Result
         return Result.success(customer);
+    }
+
+    /**
+     * 修改客户信息
+     * @param customer 封装客户信息
+     */
+    @Log
+    @PutMapping
+    public Result update(@RequestBody Customer customer) {
+        //1 接收请求参数
+        log.info("修改客户: {}", customer);
+        //2 调用service层方法，修改客户信息
+        customerService.updateCustomer(customer);
+        //3 响应Result
+        return Result.success();
     }
 }

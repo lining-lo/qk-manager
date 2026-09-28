@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -83,5 +84,22 @@ class CustomerServiceImplTest {
 
         assertThat(result).isSameAs(customer);
         verify(customerMapper).selectById(21);
+    }
+
+    @Test
+    void updateRefreshesUpdateTimeAndDoesNotChangeCreateTime() {
+        Customer customer = new Customer();
+        customer.setId(21);
+        customer.setName("库明");
+        customer.setCreateTime(LocalDateTime.of(2025, 6, 1, 21, 55, 50));
+
+        customerService.updateCustomer(customer);
+
+        ArgumentCaptor<Customer> customerCaptor = ArgumentCaptor.forClass(Customer.class);
+        verify(customerMapper).updateById(customerCaptor.capture());
+        Customer savedCustomer = customerCaptor.getValue();
+        assertThat(savedCustomer.getId()).isEqualTo(21);
+        assertThat(savedCustomer.getCreateTime()).isNull();
+        assertThat(savedCustomer.getUpdateTime()).isNotNull();
     }
 }
