@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.PageResult;
 import com.qk.domain.Result;
 import com.qk.dto.BusinessQueryDto;
@@ -8,6 +9,8 @@ import com.qk.service.BusinessService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +34,20 @@ public class BusinessController {
         PageResult<Business> pageResult = businessService.pageQuery(businessQueryDto);
         //3 响应Result
         return Result.success(pageResult);
+    }
+
+    /**
+     * 添加商机
+     * @param business 封装商机信息
+     */
+    @Log
+    @PostMapping
+    public Result add(@RequestBody Business business) {
+        //1 接收请求参数
+        log.info("新增商机: {}", business);
+        //2 调用service层方法，新增商机
+        businessService.add(business);
+        //3 响应Result
+        return Result.success();
     }
 }

@@ -58,4 +58,20 @@ class BusinessServiceImplTest {
         assertThat(pageCaptor.getValue().getCurrent()).isEqualTo(1);
         assertThat(pageCaptor.getValue().getSize()).isEqualTo(10);
     }
+
+    @Test
+    void addSetsInitialValuesAndInsertsBusiness() {
+        Business business = new Business();
+        business.setName("承娟");
+        business.setPhone("13909018929");
+
+        businessService.add(business);
+
+        ArgumentCaptor<Business> businessCaptor = ArgumentCaptor.forClass(Business.class);
+        verify(businessMapper).insert(businessCaptor.capture());
+        Business savedBusiness = businessCaptor.getValue();
+        assertThat(savedBusiness.getStatus()).isEqualTo(1);
+        assertThat(savedBusiness.getCreateTime()).isNotNull();
+        assertThat(savedBusiness.getUpdateTime()).isNotNull();
+    }
 }

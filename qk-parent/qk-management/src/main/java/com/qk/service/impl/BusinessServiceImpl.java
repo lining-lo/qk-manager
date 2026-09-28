@@ -10,11 +10,27 @@ import com.qk.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> implements BusinessService {
 
     @Autowired
     private BusinessMapper businessMapper;
+
+    /**
+     * 新增商机
+     * @param business 封装商机信息
+     */
+    @Override
+    public void add(Business business) {
+        //1 设置初始状态和基础时间
+        business.setStatus(1); //待分配
+        business.setCreateTime(LocalDateTime.now());
+        business.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，新增商机
+        businessMapper.insert(business);
+    }
 
     /**
      * 根据条件分页查询商机

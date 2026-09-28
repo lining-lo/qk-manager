@@ -19,6 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,5 +69,48 @@ class BusinessControllerTest {
         assertThat(query.getAssignName()).isEqualTo("张三");
         assertThat(query.getPage()).isEqualTo(1);
         assertThat(query.getPageSize()).isEqualTo(10);
+    }
+
+    @Test
+    void addReceivesRequestBodyAndReturnsSuccess() throws Exception {
+        String requestBody = """
+                {
+                    "phone": "13909018929",
+                    "channel": 2,
+                    "name": "承娟",
+                    "gender": 2,
+                    "age": 19,
+                    "wechat": "cj2839232323",
+                    "qq": "2595964758",
+                    "subject": 1,
+                    "remark": "无",
+                    "degree": 4,
+                    "jobStatus": 1,
+                    "courseId": 1
+                }
+                """;
+
+        mockMvc.perform(post("/businesses")
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.msg").value("success"));
+
+        ArgumentCaptor<Business> businessCaptor = ArgumentCaptor.forClass(Business.class);
+        verify(businessService).add(businessCaptor.capture());
+        Business business = businessCaptor.getValue();
+        assertThat(business.getPhone()).isEqualTo("13909018929");
+        assertThat(business.getChannel()).isEqualTo(2);
+        assertThat(business.getName()).isEqualTo("承娟");
+        assertThat(business.getGender()).isEqualTo(2);
+        assertThat(business.getAge()).isEqualTo(19);
+        assertThat(business.getWechat()).isEqualTo("cj2839232323");
+        assertThat(business.getQq()).isEqualTo("2595964758");
+        assertThat(business.getSubject()).isEqualTo(1);
+        assertThat(business.getRemark()).isEqualTo("无");
+        assertThat(business.getDegree()).isEqualTo(4);
+        assertThat(business.getJobStatus()).isEqualTo(1);
+        assertThat(business.getCourseId()).isEqualTo(1);
     }
 }
