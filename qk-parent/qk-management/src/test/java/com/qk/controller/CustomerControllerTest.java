@@ -19,6 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -67,5 +68,46 @@ class CustomerControllerTest {
         assertThat(query.getSubject()).isEqualTo(1);
         assertThat(query.getPage()).isEqualTo(1);
         assertThat(query.getPageSize()).isEqualTo(10);
+    }
+
+    @Test
+    void addReceivesRequestBodyAndReturnsSuccess() throws Exception {
+        String requestBody = """
+                {
+                    "phone": "13567210011",
+                    "channel": 1,
+                    "name": "库家明",
+                    "gender": 1,
+                    "age": 22,
+                    "wechat": "kujiaming1121",
+                    "qq": "3353439142",
+                    "degree": 4,
+                    "jobStatus": 1,
+                    "subject": 1,
+                    "courseId": 1
+                }
+                """;
+
+        mockMvc.perform(post("/customers")
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.msg").value("success"));
+
+        ArgumentCaptor<Customer> customerCaptor = ArgumentCaptor.forClass(Customer.class);
+        verify(customerService).add(customerCaptor.capture());
+        Customer customer = customerCaptor.getValue();
+        assertThat(customer.getPhone()).isEqualTo("13567210011");
+        assertThat(customer.getChannel()).isEqualTo(1);
+        assertThat(customer.getName()).isEqualTo("库家明");
+        assertThat(customer.getGender()).isEqualTo(1);
+        assertThat(customer.getAge()).isEqualTo(22);
+        assertThat(customer.getWechat()).isEqualTo("kujiaming1121");
+        assertThat(customer.getQq()).isEqualTo("3353439142");
+        assertThat(customer.getDegree()).isEqualTo(4);
+        assertThat(customer.getJobStatus()).isEqualTo(1);
+        assertThat(customer.getSubject()).isEqualTo(1);
+        assertThat(customer.getCourseId()).isEqualTo(1);
     }
 }

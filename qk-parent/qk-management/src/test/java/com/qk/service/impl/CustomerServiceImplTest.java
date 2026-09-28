@@ -57,4 +57,19 @@ class CustomerServiceImplTest {
         assertThat(pageCaptor.getValue().getCurrent()).isEqualTo(1);
         assertThat(pageCaptor.getValue().getSize()).isEqualTo(10);
     }
+
+    @Test
+    void addSetsTimesAndInsertsCustomer() {
+        Customer customer = new Customer();
+        customer.setPhone("13567210011");
+        customer.setName("库家明");
+
+        customerService.add(customer);
+
+        ArgumentCaptor<Customer> customerCaptor = ArgumentCaptor.forClass(Customer.class);
+        verify(customerMapper).insert(customerCaptor.capture());
+        Customer savedCustomer = customerCaptor.getValue();
+        assertThat(savedCustomer.getCreateTime()).isNotNull();
+        assertThat(savedCustomer.getUpdateTime()).isNotNull();
+    }
 }

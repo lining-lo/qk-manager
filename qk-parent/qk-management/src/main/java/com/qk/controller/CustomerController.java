@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.PageResult;
 import com.qk.domain.Result;
 import com.qk.dto.CustomerQueryDto;
@@ -8,6 +9,8 @@ import com.qk.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +34,20 @@ public class CustomerController {
         PageResult<Customer> pageResult = customerService.pageQuery(customerQueryDto);
         //3 响应Result
         return Result.success(pageResult);
+    }
+
+    /**
+     * 添加客户
+     * @param customer 封装客户信息
+     */
+    @Log
+    @PostMapping
+    public Result add(@RequestBody Customer customer) {
+        //1 接收请求参数
+        log.info("新增客户: {}", customer);
+        //2 调用service层方法，新增客户
+        customerService.add(customer);
+        //3 响应Result
+        return Result.success();
     }
 }

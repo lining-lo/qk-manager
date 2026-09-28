@@ -10,11 +10,26 @@ import com.qk.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> implements CustomerService {
 
     @Autowired
     private CustomerMapper customerMapper;
+
+    /**
+     * 新增客户
+     * @param customer 封装客户信息
+     */
+    @Override
+    public void add(Customer customer) {
+        //1 设置基础时间
+        customer.setCreateTime(LocalDateTime.now());
+        customer.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，新增客户
+        customerMapper.insert(customer);
+    }
 
     /**
      * 根据条件分页查询客户
