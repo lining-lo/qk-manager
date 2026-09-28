@@ -39,6 +39,22 @@ public class BusinessController {
     }
 
     /**
+     * 公海池列表查询
+     * @param businessQueryDto 封装查询条件和分页参数
+     */
+    @GetMapping("/pool")
+    public Result pool(BusinessQueryDto businessQueryDto) {
+        //1 接收请求参数，并固定查询已回收商机
+        businessQueryDto.setStatus(4); //回收
+        businessQueryDto.setAssignName(null);
+        log.info("商机公海池查询参数: {}", businessQueryDto);
+        //2 调用service层方法，分页查询
+        PageResult<Business> pageResult = businessService.pageQuery(businessQueryDto);
+        //3 响应Result
+        return Result.success(pageResult);
+    }
+
+    /**
      * 添加商机
      * @param business 封装商机信息
      */

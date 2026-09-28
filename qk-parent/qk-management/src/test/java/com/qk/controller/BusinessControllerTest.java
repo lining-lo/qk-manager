@@ -194,4 +194,38 @@ class BusinessControllerTest {
         assertThat(business.getRecord()).isEqualTo("了解了课程及上课时间");
         assertThat(business.getNextTime()).isEqualTo(LocalDateTime.of(2025, 6, 23, 10, 0));
     }
+
+    @Test
+    void poolPassesFiltersAndForcesReclaimedStatus() throws Exception {
+        Business business = new Business();
+        business.setId(15);
+        business.setName("赵六");
+        business.setStatus(4);
+        when(businessService.pageQuery(any(BusinessQueryDto.class)))
+                .thenReturn(new PageResult<>(1L, List.of(business)));
+
+        mockMvc.perform(get("/businesses/pool")
+                        .param("businessId", "15")
+                        .param("name", "赵")
+                        .param("phone", "13344432121")
+                        .param("subject", "1")
+                        .param("page", "1")
+                        .param("pageSize", "10"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.data.total").value(1))
+                .andExpect(jsonPath("$.data.rows[0].id").value(15))
+                .andExpect(jsonPath("$.data.rows[0].status").value(4));
+
+        ArgumentCaptor<BusinessQueryDto> queryCaptor = ArgumentCaptor.forClass(BusinessQueryDto.class);
+        verify(businessService).pageQuery(queryCaptor.capture());
+        BusinessQueryDto query = queryCaptor.getValue();
+        assertThat(query.getBusinessId()).isEqualTo(15);
+        assertThat(query.getName()).isEqualTo("赵");
+        assertThat(query.getPhone()).isEqualTo("13344432121");
+        assertThat(query.getSubject()).isEqualTo(1);
+        assertThat(query.getStatus()).isEqualTo(4);
+        assertThat(query.getPage()).isEqualTo(1);
+        assertThat(query.getPageSize()).isEqualTo(10);
+    }
 }

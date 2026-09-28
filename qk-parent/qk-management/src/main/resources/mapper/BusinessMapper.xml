@@ -20,6 +20,9 @@
             <if test="businessQueryDto.status != null">
                 and b.status = #{businessQueryDto.status}
             </if>
+            <if test="businessQueryDto.subject != null">
+                and b.subject = #{businessQueryDto.subject}
+            </if>
             <if test="businessQueryDto.assignName != null and businessQueryDto.assignName != ''">
                 and u.name like concat('%', #{businessQueryDto.assignName}, '%')
             </if>
