@@ -102,6 +102,36 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     }
 
     /**
+     * 踢回公海
+     * @param id 商机ID
+     */
+    @Override
+    public void backToPool(Integer id) {
+        //1 封装要修改的数据以及条件ID
+        Business business = new Business();
+        business.setId(id);
+        business.setStatus(4); //回收
+        business.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，将商机踢回公海
+        businessMapper.updateById(business);
+    }
+
+    /**
+     * 将商机转为客户
+     * @param id 商机ID
+     */
+    @Override
+    public void convertToCustomer(Integer id) {
+        //1 封装要修改的数据以及条件ID
+        Business business = new Business();
+        business.setId(id);
+        business.setStatus(5); //转客户
+        business.setUpdateTime(LocalDateTime.now());
+        //2 调用mapper层方法，将商机转为客户
+        businessMapper.updateById(business);
+    }
+
+    /**
      * 根据条件分页查询商机
      * @param businessQueryDto 封装查询条件和分页参数
      * @return 分页结果

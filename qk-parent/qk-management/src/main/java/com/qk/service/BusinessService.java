@@ -34,6 +34,18 @@ public interface BusinessService extends IService<Business> {
     void trackBusiness(Business business);
 
     /**
+     * 踢回公海
+     * @param id 商机ID
+     */
+    void backToPool(Integer id);
+
+    /**
+     * 将商机转为客户
+     * @param id 商机ID
+     */
+    void convertToCustomer(Integer id);
+
+    /**
      * 根据条件分页查询商机
      * @param businessQueryDto 封装查询条件和分页参数
      * @return 分页结果

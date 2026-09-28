@@ -145,4 +145,29 @@ class BusinessServiceImplTest {
         assertThat(trackRecord.getRecord()).isEqualTo("了解了课程及上课时间");
         assertThat(trackRecord.getCreateTime()).isNotNull();
     }
+
+    @Test
+    void backToPoolUpdatesStatusToReclaimed() {
+        businessService.backToPool(30);
+
+        ArgumentCaptor<Business> businessCaptor = ArgumentCaptor.forClass(Business.class);
+        verify(businessMapper).updateById(businessCaptor.capture());
+        Business business = businessCaptor.getValue();
+        assertThat(business.getId()).isEqualTo(30);
+        assertThat(business.getStatus()).isEqualTo(4);
+        assertThat(business.getUserId()).isNull();
+        assertThat(business.getUpdateTime()).isNotNull();
+    }
+
+    @Test
+    void convertToCustomerUpdatesStatusToCustomer() {
+        businessService.convertToCustomer(30);
+
+        ArgumentCaptor<Business> businessCaptor = ArgumentCaptor.forClass(Business.class);
+        verify(businessMapper).updateById(businessCaptor.capture());
+        Business business = businessCaptor.getValue();
+        assertThat(business.getId()).isEqualTo(30);
+        assertThat(business.getStatus()).isEqualTo(5);
+        assertThat(business.getUpdateTime()).isNotNull();
+    }
 }

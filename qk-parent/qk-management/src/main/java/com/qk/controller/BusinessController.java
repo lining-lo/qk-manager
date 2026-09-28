@@ -113,4 +113,34 @@ public class BusinessController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 踢回公海
+     * @param id 商机ID
+     */
+    @Log
+    @PutMapping("/back/{id}")
+    public Result backToPool(@PathVariable Integer id) {
+        //1 接收请求参数
+        log.info("踢回公海: id={}", id);
+        //2 调用service层方法，将商机踢回公海
+        businessService.backToPool(id);
+        //3 响应Result
+        return Result.success();
+    }
+
+    /**
+     * 将商机转为客户
+     * @param id 商机ID
+     */
+    @Log
+    @PostMapping("/toCustomer/{id}")
+    public Result convertToCustomer(@PathVariable Integer id) {
+        //1 接收请求参数
+        log.info("将商机转为客户: id={}", id);
+        //2 调用service层方法，将商机转为客户
+        businessService.convertToCustomer(id);
+        //3 响应Result
+        return Result.success();
+    }
 }

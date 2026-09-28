@@ -228,4 +228,24 @@ class BusinessControllerTest {
         assertThat(query.getPage()).isEqualTo(1);
         assertThat(query.getPageSize()).isEqualTo(10);
     }
+
+    @Test
+    void backToPoolPassesBusinessIdAndReturnsSuccess() throws Exception {
+        mockMvc.perform(put("/businesses/back/30"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.msg").value("success"));
+
+        verify(businessService).backToPool(30);
+    }
+
+    @Test
+    void convertToCustomerPassesBusinessIdAndReturnsSuccess() throws Exception {
+        mockMvc.perform(post("/businesses/toCustomer/30"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.msg").value("success"));
+
+        verify(businessService).convertToCustomer(30);
+    }
 }
