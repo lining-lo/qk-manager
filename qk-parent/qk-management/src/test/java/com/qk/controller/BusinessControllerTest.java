@@ -3,6 +3,7 @@ package com.qk.controller;
 import com.qk.domain.PageResult;
 import com.qk.dto.BusinessQueryDto;
 import com.qk.entity.Business;
+import com.qk.entity.BusinessTrackRecord;
 import com.qk.service.BusinessService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -123,5 +124,29 @@ class BusinessControllerTest {
                 .andExpect(jsonPath("$.msg").value("success"));
 
         verify(businessService).assign(30, 22);
+    }
+
+    @Test
+    void getByIdReturnsBusinessAndTrackRecords() throws Exception {
+        BusinessTrackRecord trackRecord = new BusinessTrackRecord();
+        trackRecord.setId(23);
+        trackRecord.setBusinessId(15);
+        trackRecord.setAssignName("林冲");
+
+        Business business = new Business();
+        business.setId(15);
+        business.setName("孙八");
+        business.setTrackRecords(List.of(trackRecord));
+        when(businessService.getBusinessById(15)).thenReturn(business);
+
+        mockMvc.perform(get("/businesses/15"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.data.id").value(15))
+                .andExpect(jsonPath("$.data.name").value("孙八"))
+                .andExpect(jsonPath("$.data.trackRecords[0].id").value(23))
+                .andExpect(jsonPath("$.data.trackRecords[0].assignName").value("林冲"));
+
+        verify(businessService).getBusinessById(15);
     }
 }

@@ -27,6 +27,40 @@
         order by b.update_time desc
     </select>
 
+    <!-- 根据ID查询商机详细信息(包含商机跟进列表) -->
+    <resultMap id="businessResultMap" type="com.qk.entity.Business" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="trackRecords" ofType="com.qk.entity.BusinessTrackRecord">
+            <id column="btr_id" property="id"/>
+            <result column="btr_business_id" property="businessId"/>
+            <result column="btr_user_id" property="userId"/>
+            <result column="btr_track_status" property="trackStatus"/>
+            <result column="btr_key_items" property="keyItems"/>
+            <result column="btr_next_time" property="nextTime"/>
+            <result column="btr_record" property="record"/>
+            <result column="btr_create_time" property="createTime"/>
+            <result column="btr_assign_name" property="assignName"/>
+        </collection>
+    </resultMap>
+
+    <select id="getById" resultMap="businessResultMap">
+        select b.*,
+               btr.id           as btr_id,
+               btr.business_id  as btr_business_id,
+               btr.user_id      as btr_user_id,
+               btr.track_status as btr_track_status,
+               btr.key_items    as btr_key_items,
+               btr.next_time    as btr_next_time,
+               btr.record       as btr_record,
+               btr.create_time  as btr_create_time,
+               u.name           as btr_assign_name
+        from business b
+        left join business_track_record btr on b.id = btr.business_id
+        left join user u on btr.user_id = u.id
+        where b.id = #{id}
+        order by btr.create_time desc
+    </select>
+
     <!-- 获取商机概览数据 -->
     <select id="getBusinessOverviewData" resultType="com.qk.vo.OverviewVO">
         select

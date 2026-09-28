@@ -87,4 +87,16 @@ class BusinessServiceImplTest {
         assertThat(business.getStatus()).isEqualTo(2);
         assertThat(business.getUpdateTime()).isNotNull();
     }
+
+    @Test
+    void getBusinessByIdReturnsMapperResult() {
+        Business business = new Business();
+        business.setId(15);
+        when(businessMapper.getById(15)).thenReturn(business);
+
+        Business result = businessService.getBusinessById(15);
+
+        assertThat(result).isSameAs(business);
+        verify(businessMapper).getById(15);
+    }
 }

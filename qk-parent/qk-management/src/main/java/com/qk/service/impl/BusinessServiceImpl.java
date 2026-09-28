@@ -50,6 +50,16 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     }
 
     /**
+     * 根据ID查询商机详细信息
+     * @param id 商机ID
+     * @return 商机详细信息
+     */
+    @Override
+    public Business getBusinessById(Integer id) {
+        return businessMapper.getById(id);
+    }
+
+    /**
      * 根据条件分页查询商机
      * @param businessQueryDto 封装查询条件和分页参数
      * @return 分页结果

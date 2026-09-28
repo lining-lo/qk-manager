@@ -68,4 +68,18 @@ public class BusinessController {
         //3 响应Result
         return Result.success();
     }
+
+    /**
+     * 根据ID查询商机详细信息
+     * @param id 商机ID
+     */
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        //1 接收请求参数
+        log.info("根据ID查询商机详细信息: id={}", id);
+        //2 调用service层方法，查询商机详细信息
+        Business business = businessService.getBusinessById(id);
+        //3 响应Result
+        return Result.success(business);
+    }
 }

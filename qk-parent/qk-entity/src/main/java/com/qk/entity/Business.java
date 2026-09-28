@@ -3,6 +3,7 @@ package com.qk.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 商机实体类
@@ -32,4 +33,8 @@ public class Business {
     //扩展字段-归属人姓名
     @TableField(exist = false)
     private String assignName;
+
+    //扩展字段-商机跟进记录列表
+    @TableField(exist = false)
+    private List<BusinessTrackRecord> trackRecords;
 }
