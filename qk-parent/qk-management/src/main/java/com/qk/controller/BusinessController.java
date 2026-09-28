@@ -82,4 +82,19 @@ public class BusinessController {
         //3 响应Result
         return Result.success(business);
     }
+
+    /**
+     * 跟进商机
+     * @param business 商机信息和跟进记录
+     */
+    @Log
+    @PutMapping
+    public Result trackBusiness(@RequestBody Business business) {
+        //1 接收请求参数
+        log.info("跟进商机: {}", business);
+        //2 调用service层方法，跟进商机
+        businessService.trackBusiness(business);
+        //3 响应Result
+        return Result.success();
+    }
 }

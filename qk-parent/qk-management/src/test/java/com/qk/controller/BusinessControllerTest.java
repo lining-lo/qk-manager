@@ -12,6 +12,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -148,5 +149,49 @@ class BusinessControllerTest {
                 .andExpect(jsonPath("$.data.trackRecords[0].assignName").value("林冲"));
 
         verify(businessService).getBusinessById(15);
+    }
+
+    @Test
+    void trackBusinessReceivesRequestBodyAndReturnsSuccess() throws Exception {
+        String requestBody = """
+                {
+                    "id": 14,
+                    "name": "钱七",
+                    "phone": "13800138005",
+                    "gender": 1,
+                    "age": 26,
+                    "wechat": "qianqi777",
+                    "qq": "321654987",
+                    "subject": 2,
+                    "courseId": 2,
+                    "degree": 3,
+                    "jobStatus": 1,
+                    "channel": 2,
+                    "remark": "Python爬虫需求",
+                    "status": 2,
+                    "userId": 22,
+                    "clueId": 1005,
+                    "nextTime": "2025-06-23T10:00:00",
+                    "keyItems": ["课程", "时间"],
+                    "trackStatus": 1,
+                    "record": "了解了课程及上课时间"
+                }
+                """;
+
+        mockMvc.perform(put("/businesses")
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(1))
+                .andExpect(jsonPath("$.msg").value("success"));
+
+        ArgumentCaptor<Business> businessCaptor = ArgumentCaptor.forClass(Business.class);
+        verify(businessService).trackBusiness(businessCaptor.capture());
+        Business business = businessCaptor.getValue();
+        assertThat(business.getId()).isEqualTo(14);
+        assertThat(business.getTrackStatus()).isEqualTo(1);
+        assertThat(business.getKeyItems()).containsExactly("课程", "时间");
+        assertThat(business.getRecord()).isEqualTo("了解了课程及上课时间");
+        assertThat(business.getNextTime()).isEqualTo(LocalDateTime.of(2025, 6, 23, 10, 0));
     }
 }

@@ -5,18 +5,26 @@ import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.qk.domain.PageResult;
 import com.qk.dto.BusinessQueryDto;
 import com.qk.entity.Business;
+import com.qk.entity.BusinessTrackRecord;
 import com.qk.mapper.BusinessMapper;
+import com.qk.mapper.BusinessTrackRecordMapper;
 import com.qk.service.BusinessService;
+import com.qk.utils.CurrentUserHoler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> implements BusinessService {
 
     @Autowired
     private BusinessMapper businessMapper;
+
+    @Autowired
+    private BusinessTrackRecordMapper businessTrackRecordMapper;
 
     /**
      * 新增商机
@@ -57,6 +65,40 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
     @Override
     public Business getBusinessById(Integer id) {
         return businessMapper.getById(id);
+    }
+
+    /**
+     * 跟进商机
+     * @param business 商机信息和跟进记录
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void trackBusiness(Business business) {
+        //1 更新商机状态为跟进中，并记录更新时间
+        LocalDateTime now = LocalDateTime.now();
+        business.setStatus(3); //跟进中
+        business.setUpdateTime(now);
+        businessMapper.updateById(business);
+
+        //2 封装商机跟进记录
+        BusinessTrackRecord trackRecord = new BusinessTrackRecord();
+        trackRecord.setBusinessId(business.getId());
+        trackRecord.setUserId(CurrentUserHoler.getCurrentUser());
+        trackRecord.setTrackStatus(business.getTrackStatus());
+        trackRecord.setKeyItems(formatKeyItems(business.getKeyItems()));
+        trackRecord.setNextTime(business.getNextTime());
+        trackRecord.setRecord(business.getRecord());
+        trackRecord.setCreateTime(now);
+
+        //3 新增商机跟进记录
+        businessTrackRecordMapper.insert(trackRecord);
+    }
+
+    private String formatKeyItems(List<String> keyItems) {
+        if (keyItems == null) {
+            return null;
+        }
+        return "[" + String.join(", ", keyItems) + "]";
     }
 
     /**

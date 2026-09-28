@@ -37,4 +37,16 @@ public class Business {
     //扩展字段-商机跟进记录列表
     @TableField(exist = false)
     private List<BusinessTrackRecord> trackRecords;
+
+    //扩展字段-跟进状态
+    @TableField(exist = false)
+    private Integer trackStatus;
+
+    //扩展字段-沟通重点
+    @TableField(exist = false)
+    private List<String> keyItems;
+
+    //扩展字段-沟通纪要
+    @TableField(exist = false)
+    private String record;
 }

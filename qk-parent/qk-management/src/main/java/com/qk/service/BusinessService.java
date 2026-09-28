@@ -28,6 +28,12 @@ public interface BusinessService extends IService<Business> {
     Business getBusinessById(Integer id);
 
     /**
+     * 跟进商机
+     * @param business 商机信息和跟进记录
+     */
+    void trackBusiness(Business business);
+
+    /**
      * 根据条件分页查询商机
      * @param businessQueryDto 封装查询条件和分页参数
      * @return 分页结果

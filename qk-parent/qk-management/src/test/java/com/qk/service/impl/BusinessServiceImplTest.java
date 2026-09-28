@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qk.domain.PageResult;
 import com.qk.dto.BusinessQueryDto;
 import com.qk.entity.Business;
+import com.qk.entity.BusinessTrackRecord;
+import com.qk.mapper.BusinessTrackRecordMapper;
 import com.qk.mapper.BusinessMapper;
+import com.qk.utils.CurrentUserHoler;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,8 +31,16 @@ class BusinessServiceImplTest {
     @Mock
     private BusinessMapper businessMapper;
 
+    @Mock
+    private BusinessTrackRecordMapper businessTrackRecordMapper;
+
     @InjectMocks
     private BusinessServiceImpl businessService;
+
+    @AfterEach
+    void clearCurrentUser() {
+        CurrentUserHoler.removeCurrentUser();
+    }
 
     @Test
     void pageQueryReturnsMybatisPlusPageData() {
@@ -98,5 +111,38 @@ class BusinessServiceImplTest {
 
         assertThat(result).isSameAs(business);
         verify(businessMapper).getById(15);
+    }
+
+    @Test
+    void trackBusinessUpdatesStatusAndInsertsTrackRecord() {
+        CurrentUserHoler.setCurrentUser(22);
+        Business business = new Business();
+        business.setId(14);
+        business.setStatus(2);
+        business.setUserId(22);
+        business.setNextTime(LocalDateTime.of(2025, 6, 23, 10, 0));
+        business.setKeyItems(List.of("课程", "时间"));
+        business.setTrackStatus(1);
+        business.setRecord("了解了课程及上课时间");
+
+        businessService.trackBusiness(business);
+
+        ArgumentCaptor<Business> businessCaptor = ArgumentCaptor.forClass(Business.class);
+        verify(businessMapper).updateById(businessCaptor.capture());
+        Business updatedBusiness = businessCaptor.getValue();
+        assertThat(updatedBusiness.getId()).isEqualTo(14);
+        assertThat(updatedBusiness.getStatus()).isEqualTo(3);
+        assertThat(updatedBusiness.getUpdateTime()).isNotNull();
+
+        ArgumentCaptor<BusinessTrackRecord> recordCaptor = ArgumentCaptor.forClass(BusinessTrackRecord.class);
+        verify(businessTrackRecordMapper).insert(recordCaptor.capture());
+        BusinessTrackRecord trackRecord = recordCaptor.getValue();
+        assertThat(trackRecord.getBusinessId()).isEqualTo(14);
+        assertThat(trackRecord.getUserId()).isEqualTo(22);
+        assertThat(trackRecord.getTrackStatus()).isEqualTo(1);
+        assertThat(trackRecord.getKeyItems()).isEqualTo("[课程, 时间]");
+        assertThat(trackRecord.getNextTime()).isEqualTo(LocalDateTime.of(2025, 6, 23, 10, 0));
+        assertThat(trackRecord.getRecord()).isEqualTo("了解了课程及上课时间");
+        assertThat(trackRecord.getCreateTime()).isNotNull();
     }
 }
