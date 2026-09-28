@@ -7,8 +7,10 @@
      @param clueQueryDto 封装查询条件和分页参数
     Page<Clue> list(Page<Clue> page, ClueQueryDto clueQueryDto);-->
     <select id="list" resultType="com.qk.entity.Clue">
-        select c.*, u.name as assign_name
-        from clue c left join user u on c.user_id = u.id
+        select c.*, u.name as assign_name, a.name as activity_name
+        from clue c
+        left join user u on c.user_id = u.id
+        left join activity a on c.activity_id = a.id
         <where>
             <if test="clueQueryDto.clueId != null">
                 and c.id = #{clueQueryDto.clueId}

@@ -28,6 +28,10 @@ public class Clue {
     private LocalDateTime createTime; // 创建时间
     private LocalDateTime updateTime; // 修改时间
 
+    //扩展字段-活动名称
+    @TableField(exist = false)
+    private String activityName;
+
     //扩展字段-归属人姓名
     @TableField(exist = false)
     private String assignName;

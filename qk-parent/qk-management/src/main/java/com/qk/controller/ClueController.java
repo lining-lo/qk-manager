@@ -34,7 +34,6 @@ public class ClueController {
         return Result.success();
     }
 
-
     /**
      * 根据条件分页查询
      * @param clueQueryDto 封装分页条件
@@ -43,6 +42,20 @@ public class ClueController {
     public Result page(ClueQueryDto clueQueryDto) {
         //1 接收请求参数--->(ClueQueryDto clueQueryDto)
         log.info("查询参数: {}", clueQueryDto);
+        //2 调用service层方法，分页查询
+        PageResult<Clue> pageResult = clueService.pageQuery(clueQueryDto);
+        //3 响应Result
+        return Result.success(pageResult);
+    }
+
+    /**
+     * 线索池列表查询
+     * @param clueQueryDto 封装查询条件和分页参数
+     */
+    @GetMapping("/pool")
+    public Result pool(ClueQueryDto clueQueryDto) {
+        //1 接收请求参数
+        log.info("线索池查询参数: {}", clueQueryDto);
         //2 调用service层方法，分页查询
         PageResult<Clue> pageResult = clueService.pageQuery(clueQueryDto);
         //3 响应Result
