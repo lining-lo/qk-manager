@@ -1,5 +1,6 @@
 package com.qk.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,4 +19,8 @@ public class OperateLog {
     private String methodParams; //方法参数
     private String returnValue; //返回值
     private Long costTime; //耗时
+
+    //扩展字段-操作人姓名
+    @TableField(exist = false)
+    private String operateUserName;
 }

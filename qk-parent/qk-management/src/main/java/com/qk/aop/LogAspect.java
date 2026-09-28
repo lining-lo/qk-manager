@@ -40,7 +40,7 @@ public class LogAspect {
         Long costTime = System.currentTimeMillis() - start;
 
         //2 将日志信息封装成OperateLog对象
-        OperateLog log = new OperateLog(null, operateUserId, operateTime, className, methodName, methodParams, returnValue, costTime);
+        OperateLog log = new OperateLog(null, operateUserId, operateTime, className, methodName, methodParams, returnValue, costTime,null);
         //3 调用mapper层方法保存日志
         operateLogMapper.insert(log);
         return result;

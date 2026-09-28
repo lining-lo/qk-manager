@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qk.mapper.OperateLogMapper">
+    <select id="list" resultType="com.qk.entity.OperateLog">
+        SELECT o.*,u.name as operate_user_name
+        from operate_log o left join user u on o.operate_user_id = u.id
+        <where>
+            <if test="operateLogQueryDto.operateUserName != null and operateLogQueryDto.operateUserName != ''">
+                and u.name LIKE concat('%',#{operateLogQueryDto.operateUserName},'%')
+            </if>
+        </where>
+        order by o.operate_time desc
+    </select>
+</mapper>
