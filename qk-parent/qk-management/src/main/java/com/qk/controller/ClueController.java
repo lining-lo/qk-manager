@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.PageResult;
 import com.qk.domain.Result;
 import com.qk.dto.ClueQueryDto;
@@ -21,6 +22,7 @@ public class ClueController {
      * @param clue 封装线索信息
      * @return
      */
+    @Log
     @PostMapping
     public Result add(@RequestBody Clue clue){
         //1 接收请求参数
@@ -52,6 +54,7 @@ public class ClueController {
      * @param clueId 线索id
      * @param userId 用户id
      */
+    @Log
     @PutMapping("/assign/{clueId}/{userId}")
     public Result assign(@PathVariable Integer clueId,@PathVariable Integer userId){
         //1 接收请求参数-->(@PathVariable Integer clueId,@PathVariable Integer userId)
@@ -85,6 +88,7 @@ public class ClueController {
      * 跟进线索
      * @param clue 线索信息
      */
+    @Log
     @PutMapping
     public Result trackClue(@RequestBody Clue clue) {
         //1 接收请求参数--->(@RequestBody Clue clue)
@@ -100,6 +104,7 @@ public class ClueController {
      * @param id 线索ID
      * @return 操作结果
      */
+    @Log
     @PutMapping("/toBusiness/{id}")
     public Result convertToBusiness(@PathVariable Integer id) {
         //1 接收请求参数--->(@PathVariable Integer id)

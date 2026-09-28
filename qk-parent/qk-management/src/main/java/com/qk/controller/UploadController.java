@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.Result;
 import com.qk.utils.AliyunOSSOperator;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class UploadController {
     /**
      * 文件上传
      */
+    @Log
     @PostMapping("/upload")
     public Result upload(MultipartFile image) throws Exception {
         log.info("文件上传开始：{}", image.getOriginalFilename());

@@ -1,4 +1,5 @@
 package com.qk.controller;
+import com.qk.anno.Log;
 import com.qk.entity.Course;
 import com.qk.domain.PageResult;
 import com.qk.domain.Result;
@@ -52,6 +53,7 @@ public class CourseController {
      * 新增课程
      * @param course 封装课程信息
      */
+    @Log
     @PostMapping
     public Result add(@RequestBody Course course) {
         //1 接收请求参数--->(@RequestBody Course course)
@@ -66,6 +68,7 @@ public class CourseController {
      * 修改课程
      * @param course 课程信息
      */
+    @Log
     @PutMapping
     public Result update(@RequestBody Course course) {
         //1 接收请求参数--->(@RequestBody Course course)
@@ -95,6 +98,7 @@ public class CourseController {
      * 删除课程
      * @param id 课程ID
      */
+    @Log
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         //1 接收请求参数--->(@PathVariable Course course)

@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.PageResult;
 import com.qk.entity.Activity;
 import com.qk.domain.Result;
@@ -36,6 +37,7 @@ public class ActivityController {
      * 新增活动
      * @param activity 封装活动信息(包括活动名称、状态)
      */
+    @Log
     @PostMapping
     public Result add(@RequestBody Activity activity) {
         //1 接收请求参数--->(@RequestBody Activity activity)
@@ -65,6 +67,7 @@ public class ActivityController {
      * 修改活动
      * @param activity 活动信息
      */
+    @Log
     @PutMapping
     public Result update(@RequestBody Activity activity) {
         //1 接收请求参数--->(@RequestBody Activity activity)
@@ -79,6 +82,7 @@ public class ActivityController {
      * 删除活动
      * @param id 活动ID
      */
+    @Log
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         //1 接收请求参数--->(@PathVariable Activity activity)

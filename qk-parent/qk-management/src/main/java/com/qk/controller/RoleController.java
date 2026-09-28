@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.PageResult;
 import com.qk.domain.Result;
 import com.qk.entity.Role;
@@ -51,6 +52,7 @@ public class RoleController {
      * 新增角色
      * @param role 封装角色信息(包括角色名称、角色标识、备注)
      */
+    @Log
     @PostMapping
     public Result add(@RequestBody Role role) {
         //1 接收请求参数--->(@RequestBody Role role)
@@ -80,6 +82,7 @@ public class RoleController {
      * 修改角色
      * @param role 角色信息
      */
+    @Log
     @PutMapping
     public Result update(@RequestBody Role role) {
         //1 接收请求参数--->(@RequestBody Role role)
@@ -94,6 +97,7 @@ public class RoleController {
      * 删除角色
      * @param id 角色ID
      */
+    @Log
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         //1 接收请求参数--->(@PathVariable Role role)

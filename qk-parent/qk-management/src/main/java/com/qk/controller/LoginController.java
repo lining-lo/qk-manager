@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.Result;
 import com.qk.dto.UserLoginDto;
 import com.qk.service.UserService;
@@ -19,6 +20,7 @@ public class LoginController {
      用户登录
      * @param loginDto 封装用户名和密码
      */
+    @Log
     @PostMapping("/login")
     public Result login(@RequestBody UserLoginDto loginDto){
         //1 接收请求参数-->(@RequestBody UserLoginDto loginDto

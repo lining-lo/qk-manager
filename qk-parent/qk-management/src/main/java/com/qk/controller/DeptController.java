@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.PageResult;
 import com.qk.domain.Result;
 import com.qk.entity.Dept;
@@ -37,6 +38,7 @@ public class DeptController {
      * @param dept 封装要新增部门信息(只有name和status)
      * @RequestBody :将请求体中的json数据转换(封装)成Java对象，要求json的key要和对象的属性名一样。适用于POST、PUT请求
      */
+    @Log
     @PostMapping
     public Result add(@RequestBody Dept dept){
         //1 接收请求参数-->(@RequestBody Dept dept)
@@ -76,6 +78,7 @@ public class DeptController {
      * 修改部门
      * @param dept 部门信息
      */
+    @Log
     @PutMapping
     public Result update(@RequestBody Dept dept) {
         //1 接收请求参数--->(@RequestBody Dept dept)
@@ -90,6 +93,7 @@ public class DeptController {
      * 删除部门
      * @param id 部门ID
      */
+    @Log
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         //1 接收请求参数--->(@PathVariable Dept dept)

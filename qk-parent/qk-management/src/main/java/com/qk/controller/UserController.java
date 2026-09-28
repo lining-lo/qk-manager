@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.Log;
 import com.qk.domain.PageResult;
 import com.qk.domain.Result;
 import com.qk.dto.UserQueryDto;
@@ -42,6 +43,7 @@ public class UserController {
      新增用户
      * @param user 封装用户信息(不包含password、createTime、updateTime)
      */
+    @Log
     @PostMapping
     public Result add(@RequestBody User user){
         //1 接收请求参数-->(@RequestBody User user)
@@ -56,6 +58,7 @@ public class UserController {
      批量删除
      * @param ids 保存批量删除的ID们。例如：/users/2,3,4
      */
+    @Log
     @DeleteMapping("/{ids}")
     //public Result delete(@PathVariable Integer[] ids){
     public Result delete(@PathVariable List<Integer> ids){
@@ -85,6 +88,7 @@ public class UserController {
      * 修改用户信息
      * @param user 用户信息
      */
+    @Log
     @PutMapping
     public Result update(@RequestBody User user) {
         //1 获取请求参数--->(@RequestBody User user)
