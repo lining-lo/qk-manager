@@ -1,15 +1,23 @@
 package com.qk.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.qk.dto.BusinessQueryDto;
 import com.qk.entity.Business;
 import com.qk.vo.OverviewVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 商机管理Mapper
  */
 @Mapper
 public interface BusinessMapper extends BaseMapper<Business> {
+    /**
+     * 根据条件分页查询商机
+     */
+    Page<Business> list(Page<Business> page, @Param("businessQueryDto") BusinessQueryDto businessQueryDto);
+
     /**
      * 获取商机概览数据
      */

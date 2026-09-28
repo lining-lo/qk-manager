@@ -1,5 +1,6 @@
 package com.qk.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -27,4 +28,8 @@ public class Business {
     private LocalDateTime nextTime; // 下次跟进时间
     private LocalDateTime createTime; // 创建时间
     private LocalDateTime updateTime; // 修改时间
+
+    //扩展字段-归属人姓名
+    @TableField(exist = false)
+    private String assignName;
 }

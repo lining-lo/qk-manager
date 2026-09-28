@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qk.mapper.BusinessMapper">
 
+    <!-- 根据条件分页查询商机 -->
+    <select id="list" resultType="com.qk.entity.Business">
+        select b.*, u.name as assign_name
+        from business b
+        left join user u on b.user_id = u.id
+        <where>
+            <if test="businessQueryDto.businessId != null">
+                and b.id = #{businessQueryDto.businessId}
+            </if>
+            <if test="businessQueryDto.name != null and businessQueryDto.name != ''">
+                and b.name like concat('%', #{businessQueryDto.name}, '%')
+            </if>
+            <if test="businessQueryDto.phone != null and businessQueryDto.phone != ''">
+                and b.phone like concat('%', #{businessQueryDto.phone}, '%')
+            </if>
+            <if test="businessQueryDto.status != null">
+                and b.status = #{businessQueryDto.status}
+            </if>
+            <if test="businessQueryDto.assignName != null and businessQueryDto.assignName != ''">
+                and u.name like concat('%', #{businessQueryDto.assignName}, '%')
+            </if>
+        </where>
+        order by b.update_time desc
+    </select>
+
     <!-- 获取商机概览数据 -->
     <select id="getBusinessOverviewData" resultType="com.qk.vo.OverviewVO">
         select
